@@ -219,6 +219,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
         </ul>
+        <ul class="nav nav-sidebar flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}"
+                   onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+              </li>
+        </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>
@@ -291,5 +305,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script> --}}
 <script src='/js/app.js'></script>
+@include('sweetalert::alert')
 </body>
 </html>

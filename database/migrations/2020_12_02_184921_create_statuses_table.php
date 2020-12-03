@@ -13,10 +13,15 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        Schema::create('statuses', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('statuses')) {
+            Schema::create('statuses', function (Blueprint $table) {
+                $table->id();
+                $table->string('awb');
+                $table->unsignedBigInteger('checkpoint_id');
+                $table->unsignedBigInteger('user_id');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

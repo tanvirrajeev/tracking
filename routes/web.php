@@ -18,9 +18,12 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
+Route::get('/tracking', 'TrackingController@index')->name('tracking');
+
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('status', 'StatusController');
 
 
 // Auth::routes();
