@@ -13,12 +13,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/web/about-us', function () {
+    return view('web.about-us');
+});
+Route::get('/web/courier-service', function () {
+    return view('web.courier-service');
+});
+Route::get('/web/cnf-solution', function () {
+    return view('web.cnf-solution');
+});
+Route::get('/web/corporate-clients', function () {
+    return view('web.corporate-clients');
+});
+Route::get('/web/contact-us', function () {
+    return view('web.contact-us');
+});
+Route::get('/web/why-us', function () {
+    return view('web.why-us');
+});
+Route::get('/web/mission', function () {
+    return view('web.mission');
+});
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::resource('/tracking', 'TrackingController');
+Route::resource('/web', 'WebController');
 
 
 Auth::routes();
