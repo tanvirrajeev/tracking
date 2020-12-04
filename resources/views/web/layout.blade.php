@@ -1413,7 +1413,21 @@ display:block;
 	display:block;
 */
 
+}
 
+.modal-backdrop
+{
+    opacity:0.8 !important;
+}
+
+
+/* Important part */
+.modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+    height: 80vh;
+    overflow-y: auto;
 }
 
 
@@ -1448,14 +1462,18 @@ jQuery('ul.superfish').superfish();
 
 <body  bgcolor="#FFFFF" style="padding:0; margin:0;">
 
-    <div class="bootstrap-iso">
-        <button type="button" class="btn btn-primary" onclick='openModal()'>
+<div class="bootstrap-iso">
+        <link href="{{ asset('css/progress-wizard.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/vertical-bar.css') }}" rel="stylesheet">
+
+
+        <button type="button" id="status1" class="btn btn-primary"  onclick='openModal()'>
     Launch demo modal
   </button>
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -1463,8 +1481,17 @@ jQuery('ul.superfish').superfish();
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">
-          ...
+        <div class="modal-body id="tracking-body">
+
+
+            <div id="timeline-speaker-example">
+                <h4>PACKAGE TRACKING</h4><br>
+                <ul class="progress-indicator stacked dark" id="tracking-ul">
+
+                </ul>
+            </div>
+
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
@@ -1473,7 +1500,43 @@ jQuery('ul.superfish').superfish();
       </div>
     </div>
   </div>
-  <div class="fade show" id="backdrop"  style="display: none;"></div>
+  <div class="modal-backdrop" id="backdrop"  style="display: none;"></div>
+
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+  <script>
+    $( "#status" ).click(function() {
+        console.log("Button clicked!!");
+
+        var st = $('#tracking-ul');
+        var time = 12-12-2020;
+        var status = 'Delivered';
+        console.log(status);
+        var order_id = '2212423';
+        var name = 'Tanvir';
+        st.append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">Order Created" +
+                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+status+"</span>" +
+                                "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +order_id+"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Created By: " + name +"</span>" +
+                                "</span>"+
+                                "</li>");
+        st.append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">Order Created" +
+                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+status+"</span>" +
+                                "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +order_id+"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Created By: " + name +"</span>" +
+                                "</span>"+
+                                "</li>");
+
+    });
+</script>
 
 </div>
 
@@ -1640,8 +1703,8 @@ jQuery('ul.superfish').superfish();
  <form name="log_frm" action="search.php" id ="searchform" method="post" style="padding-bottom:5px;padding-right:6px; margin:0;" >
         <span style="color:#FFFFFF" >track your pack.</span>
         <input type="text" name="awb_no">
-        <input type="submit" name="submit" value="search">
-        <a href="http://" >Search</a>
+        {{-- <input type="button" name="submit" value="search" id="status1" onclick='openModal()'> --}}
+        <button type="button" id="status" class="btn btn-primary"  onclick='openModal()'>Search</button>
 		<!--<input type="text" name="awb_no" id="s" class="search" >
             <input type="image"  src="images/search_bt.jpg" align="absbottom" style="margin-right:10px; border:0 ;">-->
 
@@ -1760,11 +1823,32 @@ jQuery('ul.superfish').superfish();
 
 
 <script>
-    openModal()
+
     function openModal() {
         document.getElementById("backdrop").style.display = "block"
         document.getElementById("exampleModal").style.display = "block"
         document.getElementById("exampleModal").className += "show"
+
+
+        var st = document.getElementById("tracking-ul");
+
+        var st = $('#tracking-body');
+        var time = 12/12/2020;
+        var status = 'Delivered';
+        var order_id = '2212423';
+        var name = 'Tanvir';
+        st.find('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">Order Created" +
+                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+status+"</span>" +
+                                "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +order_id+"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Created By: " + name +"</span>" +
+                                "</span>"+
+                                "</li>");
+
+
     }
     function closeModal() {
         document.getElementById("backdrop").style.display = "none"
@@ -1780,6 +1864,61 @@ jQuery('ul.superfish').superfish();
         closeModal()
       }
     }
+</script>
+
+<script type="text/javascript">
+    jQuery(function(){
+        var st = $('#tracking-body');
+        var time = 12/12/2020;
+        var status = 'Delivered';
+        console.log(status);
+        var order_id = '2212423';
+        var name = 'Tanvir';
+        st.find('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">Order Created" +
+                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+status+"</span>" +
+                                "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +order_id+"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Created By: " + name +"</span>" +
+                                "</span>"+
+                                "</li>");
+    });
+    </script>
+
+<script>
+    $( "#status" ).click(function() {
+        console.log("Button clicked!!");
+
+        var st = $('#tracking-ul');
+        var time = 12-12-2020;
+        var status = 'Delivered';
+        console.log(status);
+        var order_id = '2212423';
+        var name = 'Tanvir';
+        st.append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">Order Created" +
+                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+status+"</span>" +
+                                "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +order_id+"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Created By: " + name +"</span>" +
+                                "</span>"+
+                                "</li>");
+        st.append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">Order Created" +
+                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+status+"</span>" +
+                                "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +order_id+"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Created By: " + name +"</span>" +
+                                "</span>"+
+                                "</li>");
+
+    });
 </script>
 
 
