@@ -18,12 +18,12 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', 'Auth\LoginController@showLoginForm');
-Route::get('/tracking', 'TrackingController@index')->name('tracking');
+Route::resource('/tracking', 'TrackingController');
 
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource('status', 'StatusController');
+Route::resource('/status', 'StatusController')->middleware('auth');
 
 
 // Auth::routes();
