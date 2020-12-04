@@ -35,9 +35,9 @@ Route::get('/web/mission', function () {
     return view('web.mission');
 });
 
-Route::get('/', 'Auth\LoginController@showLoginForm');
+Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::resource('/tracking', 'TrackingController');
-Route::resource('/web', 'WebController');
+Route::resource('/', 'WebController');
 
 
 Auth::routes();

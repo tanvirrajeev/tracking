@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-
+<link rel="stylesheet" href="/css/bootstrap-iso.css">
 <meta http-equiv="Content-Language" content="en-us">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <title>Power Line Air Express Ltd - A Reputation for Excellence</title>
@@ -1448,6 +1448,39 @@ jQuery('ul.superfish').superfish();
 
 <body  bgcolor="#FFFFF" style="padding:0; margin:0;">
 
+    <div class="bootstrap-iso">
+        <button type="button" class="btn btn-primary" onclick='openModal()'>
+    Launch demo modal
+  </button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" aria-label="Close"  onclick="closeModal()">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fade show" id="backdrop"  style="display: none;"></div>
+
+</div>
+
+
+
+
+
 <div align="center">
 <div align="center" style="background:#F26A07">
  <table width="1050" border="0" cellpadding="0" cellspacing="0">
@@ -1498,9 +1531,9 @@ jQuery('ul.superfish').superfish();
 		<ul class="nav superfish sf-js-enabled sf-shadow">
 
 
-				<li class="cat-item cat-item-1"><a class="sf-with-ul" href="/web" title="Home...">home</a>				</li>
+				<li class="cat-item cat-item-1"><a class="sf-with-ul" href="/" title="Home...">home</a>				</li>
 
-		  <li class="cat-item cat-item-0"><a class="sf-with-ul" href="log_in_form.php" title="Log In...">login</a>
+		  <li class="cat-item cat-item-0"><a class="sf-with-ul" href="#" title="Log In...">login</a>
 					</li>
 
 	<!------------------------------Modified by Md. Rayhan Ali-------------------------------------------------------->
@@ -1574,7 +1607,7 @@ jQuery('ul.superfish').superfish();
 				---->
 		  <li class="cat-item cat-item-2"><a class="sf-with-ul" href="search2.php" title="">track [for internet explorer only]</a>
 		  <li class="cat-item cat-item-2"><a class="sf-with-ul" href="http://powerlinebd.net:2095/" title="About Powerlinebd....">webmail</a>
-		  <li class="page_item page-item-3"><a class="sf-with-ul" href="page.php?id=contact_us"  >contact us</a>		  </li>
+		  <li class="page_item page-item-3"><a class="sf-with-ul" href="/web/contact-us"  >contact us</a>		  </li>
 
 
 		            		</ul>
@@ -1608,7 +1641,7 @@ jQuery('ul.superfish').superfish();
         <span style="color:#FFFFFF" >track your pack.</span>
         <input type="text" name="awb_no">
         <input type="submit" name="submit" value="search">
-
+        <a href="http://" >Search</a>
 		<!--<input type="text" name="awb_no" id="s" class="search" >
             <input type="image"  src="images/search_bt.jpg" align="absbottom" style="margin-right:10px; border:0 ;">-->
 
@@ -1723,6 +1756,32 @@ jQuery('ul.superfish').superfish();
 		</tr>
 	</table>
 </div>
+{{-- <script src='/js/app.js'></script> --}}
+
+
+<script>
+    openModal()
+    function openModal() {
+        document.getElementById("backdrop").style.display = "block"
+        document.getElementById("exampleModal").style.display = "block"
+        document.getElementById("exampleModal").className += "show"
+    }
+    function closeModal() {
+        document.getElementById("backdrop").style.display = "none"
+        document.getElementById("exampleModal").style.display = "none"
+        document.getElementById("exampleModal").className += document.getElementById("exampleModal").className.replace("show", "")
+    }
+    // Get the modal
+    var modal = document.getElementById('exampleModal');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        closeModal()
+      }
+    }
+</script>
+
 
 </body>
 
