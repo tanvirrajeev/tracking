@@ -26,7 +26,8 @@ class WebController extends Controller
         if($awb != ''){
             $tk = DB::table('statuses')
             ->join('users', 'users.id', '=', 'statuses.user_id')
-            ->select('statuses.awb as awb','statuses.checkpoint_id as checkpoint','users.name as user')
+            ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
+            ->select('statuses.awb as awb','checkpoints.name as checkpoint','users.name as user','statuses.checkpoint_id as chkid','statuses.created_at as time')
             ->where('statuses.awb', $awb)
             ->get();
             return response($tk);

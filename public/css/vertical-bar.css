@@ -61,6 +61,7 @@
             #timeline-speaker-example .stacked-text {
                 top: -37px;
                 left: -50px;
+                font-size: 13px;
             }
             #timeline-speaker-example .subdued {
                 font-size: 10px;

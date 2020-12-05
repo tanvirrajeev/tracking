@@ -1561,7 +1561,7 @@ jQuery('ul.superfish').superfish();
 
 				<li class="cat-item cat-item-1"><a class="sf-with-ul" href="/" title="Home...">home</a>				</li>
 
-		  <li class="cat-item cat-item-0"><a class="sf-with-ul" href="#" title="Log In...">login</a>
+		  <li class="cat-item cat-item-0"><a class="sf-with-ul" href="/login" title="Log In...">login</a>
 					</li>
 
 	<!------------------------------Modified by Md. Rayhan Ali-------------------------------------------------------->
@@ -1854,6 +1854,7 @@ jQuery('ul.superfish').superfish();
 
 <script>
     $( "#status" ).click(function() {
+		// var st = $('#tracking-body');
         var frm = $('#searchform');
         var awb = frm.find('#awb').val();
         console.log(awb);
@@ -1866,11 +1867,43 @@ jQuery('ul.superfish').superfish();
                 console.log(data);
                 // console.log(data[]);
                 var dataObj = JSON.parse(data);
-                console.log(dataObj[0].checkpoint);
-                console.log(dataObj[1].checkpoint);
+                // console.log(dataObj[0].checkpoint);
+                // console.log(dataObj[1].checkpoint);
 
+                $('#tracking-ul').empty();
                 for(i in dataObj){
-                    console.log(dataObj[i].checkpoint);
+                    console.log(dataObj[i].chkid);
+                    if (dataObj[i].checkpoint  == 'Pickup Done' || dataObj[i].checkpoint  == 'Pickup Done in India'){
+                        $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+dataObj[i].time+"</span>" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">"+ dataObj[i].checkpoint +
+                                "<span class=\"subdued\" id=\"cpxid\">AWB No: " +dataObj[i].awb+"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Updated By: " + dataObj[i].user +"</span>" +
+                                "</span>"+
+                                "</li>");
+                    }else if (dataObj[i].checkpoint  == 'Delivered'){
+                        $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+dataObj[i].time+"</span>" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">"+ dataObj[i].checkpoint + "&nbsp; &nbsp; <span style=\"color: rgb(78, 184, 78);\"><i class=\"fas fa-check-circle\"></i></span>"+
+                                // "<span class=\"subdued\" id=\"cpxid\">AWB No: " +dataObj[i].awb+"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Updated By: " + dataObj[i].user +"</span>" +
+                                "</span>"+
+                                "<i style=\"font-size: 3em; color: Orange; margin-left: 52%; margin-right: 48%;\" class=\"fas fa-people-carry\"></i>" +
+                                "</li>");
+                    }else{
+                        $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+dataObj[i].time+"</span>" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\">"+ dataObj[i].checkpoint +
+                                // "<span class=\"subdued\" id=\"cpxid\">AWB No: " +dataObj[i].awb+"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Updated By: " + dataObj[i].user +"</span>" +
+                                "</span>"+
+                                "</li>");
+                    }
+
                 }
 
             }
