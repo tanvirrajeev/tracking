@@ -1467,15 +1467,15 @@ jQuery('ul.superfish').superfish();
         <link href="{{ asset('css/vertical-bar.css') }}" rel="stylesheet">
 
 
-        <button type="button" id="status1" class="btn btn-primary"  onclick='openModal()'>
+        {{-- <button type="button" id="status1" class="btn btn-primary"  onclick='openModal()'>
     Launch demo modal
-  </button>
+  </button> --}}
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-warning">
           <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
           <button type="button" class="close" aria-label="Close"  onclick="closeModal()">
             <span aria-hidden="true">×</span>
@@ -1494,8 +1494,7 @@ jQuery('ul.superfish').superfish();
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-danger" onclick="closeModal()">Close</button>
         </div>
       </div>
     </div>
@@ -1503,40 +1502,6 @@ jQuery('ul.superfish').superfish();
   <div class="modal-backdrop" id="backdrop"  style="display: none;"></div>
 
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-
-  <script>
-    $( "#status" ).click(function() {
-        console.log("Button clicked!!");
-
-        var st = $('#tracking-ul');
-        var time = 12-12-2020;
-        var status = 'Delivered';
-        console.log(status);
-        var order_id = '2212423';
-        var name = 'Tanvir';
-        st.append("<li class=\"completed warning\" id=\"ordcrt\">" +
-                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
-                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
-                                "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\">Order Created" +
-                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+status+"</span>" +
-                                "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +order_id+"</span>" +
-                                "<span class=\"subdued\" id=\"created-by\">Created By: " + name +"</span>" +
-                                "</span>"+
-                                "</li>");
-        st.append("<li class=\"completed warning\" id=\"ordcrt\">" +
-                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
-                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
-                                "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\">Order Created" +
-                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+status+"</span>" +
-                                "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +order_id+"</span>" +
-                                "<span class=\"subdued\" id=\"created-by\">Created By: " + name +"</span>" +
-                                "</span>"+
-                                "</li>");
-
-    });
-</script>
 
 </div>
 
@@ -1702,7 +1667,7 @@ jQuery('ul.superfish').superfish();
  <span style="float:right;">
  <form name="log_frm" action="search.php" id ="searchform" method="post" style="padding-bottom:5px;padding-right:6px; margin:0;" >
         <span style="color:#FFFFFF" >track your pack.</span>
-        <input type="text" name="awb_no">
+        <input type="text" name="awb" id="awb">
         {{-- <input type="button" name="submit" value="search" id="status1" onclick='openModal()'> --}}
         <button type="button" id="status" class="btn btn-primary"  onclick='openModal()'>Search</button>
 		<!--<input type="text" name="awb_no" id="s" class="search" >
@@ -1889,34 +1854,30 @@ jQuery('ul.superfish').superfish();
 
 <script>
     $( "#status" ).click(function() {
-        console.log("Button clicked!!");
+        var frm = $('#searchform');
+        var awb = frm.find('#awb').val();
+        console.log(awb);
 
-        var st = $('#tracking-ul');
-        var time = 12-12-2020;
-        var status = 'Delivered';
-        console.log(status);
-        var order_id = '2212423';
-        var name = 'Tanvir';
-        st.append("<li class=\"completed warning\" id=\"ordcrt\">" +
-                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
-                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
-                                "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\">Order Created" +
-                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+status+"</span>" +
-                                "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +order_id+"</span>" +
-                                "<span class=\"subdued\" id=\"created-by\">Created By: " + name +"</span>" +
-                                "</span>"+
-                                "</li>");
-        st.append("<li class=\"completed warning\" id=\"ordcrt\">" +
-                                "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
-                                "<span class=\"time\" id=\"created-at-rcvhub\">"+time+"</span>" +
-                                "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\">Order Created" +
-                                "<span class=\"subdued\" id=\"sts-rcvhub\">"+status+"</span>" +
-                                "<span class=\"subdued\" id=\"cpxid\">CPX ID: " +order_id+"</span>" +
-                                "<span class=\"subdued\" id=\"created-by\">Created By: " + name +"</span>" +
-                                "</span>"+
-                                "</li>");
+        $.ajax({
+            type: 'get',
+            url: "{{ url('/web/tracking') }}",
+            data: {awb:awb},
+            success:function(data){
+                console.log(data);
+                // console.log(data[]);
+                var dataObj = JSON.parse(data);
+                console.log(dataObj[0].checkpoint);
+                console.log(dataObj[1].checkpoint);
+
+                for(i in dataObj){
+                    console.log(dataObj[i].checkpoint);
+                }
+
+            }
+        });
+
+
+
 
     });
 </script>

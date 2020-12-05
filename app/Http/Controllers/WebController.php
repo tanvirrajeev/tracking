@@ -3,16 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Web;
+use App\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WebController extends Controller
 {
 
     public function index(){
 
+        // $trk = DB::table('statuses')
+        // ->get();
+        // dd($trk);
+
         return view('web.index');
     }
 
+    public function tracking(){
+        $awb = (isset($_GET['awb']) ? $_GET['awb'] : '');
+
+
+        if($awb != ''){
+            $tk = DB::table('statuses')
+            ->join('users', 'users.id', '=', 'statuses.user_id')
+            ->select('statuses.awb as awb','statuses.checkpoint_id as checkpoint','users.name as user')
+            ->where('statuses.awb', $awb)
+            ->get();
+            return response($tk);
+        }else{
+            return response("Null");
+        }
+
+
+        // return response($tk);
+
+    }
 
     public function create(){
         //
