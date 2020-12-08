@@ -1903,15 +1903,9 @@ jQuery('ul.superfish').superfish();
                                 "</span>"+
                                 "</li>");
                     }
-
                 }
-
             }
         });
-
-
-
-
     });
 </script>
 

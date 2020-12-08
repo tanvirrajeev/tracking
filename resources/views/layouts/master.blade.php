@@ -189,14 +189,11 @@
             <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
                 <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Starter Pages
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
+                    <a href="/status" class="nav-link {{ Request::is('status') ? 'active' : ''}}">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <p>Status Update</p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    {{-- <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
                                 <i class="far fa-circle nav-icon"></i>
@@ -209,7 +206,7 @@
                   <p>Inactive Page</p>
                 </a>
             </li>
-        </ul>
+        </ul> --}}
     </li>
     <li class="nav-item">
         <a href="#" class="nav-link">
@@ -311,26 +308,6 @@
 <script src='/js/app.js'></script>
 @include('sweetalert::alert')
 
-{{-- Datepicker  --}}
-{{-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/locales/bootstrap-datepicker.es.min.js"></script>
-<script >
-    $('#datetimepicker').datepicker({
-        format: 'dd/mm/yyyy',
-    weekStart: 0,
-    todayBtn: "linked",
-    language: "en",
-    orientation: "bottom auto",
-    keyboardNavigation: true,
-    autoclose: true
-});
-</script> --}}
-{{--
-<script>
-    $('#datetimepicker').datetimepicker({
-    format: 'yyyy-mm-dd hh:ii'
-});
-</script> --}}
 
 </body>
 </html>
