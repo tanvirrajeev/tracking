@@ -13,9 +13,10 @@ class StatusController extends Controller
 
     public function index(){
         $checkpoint = DB::table('checkpoints')->get();
+        $areaCodes = DB::table('area_codes')->get();
         // dd($checkpoint);
 
-        return view('status.index', compact('checkpoint'));
+        return view('status.index', compact('checkpoint','areaCodes'));
     }
 
     public function create()
@@ -33,6 +34,9 @@ class StatusController extends Controller
          $st->awb = $request->awb;
          $st->checkpoint_id = $request->checkpoint_id;
          $st->user_id = Auth::id();
+         $st->mawb = $request->mawb;
+         $st->areacode = $request->areaCodes;
+         $st->created_at = $request->created_at;
          $st->save();
          return redirect(route('status.index'))->with('toast_success','STATUS UPDATED');
     }

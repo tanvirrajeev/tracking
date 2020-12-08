@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStatusesTable extends Migration
+class CreateAreaCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateStatusesTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('statuses')) {
-            Schema::create('statuses', function (Blueprint $table) {
+        if (!Schema::hasTable('area_codes')) {
+            Schema::create('area_codes', function (Blueprint $table) {
                 $table->id();
-                $table->string('awb');
-                $table->unsignedBigInteger('checkpoint_id');
+                $table->string('name');
+                $table->string('description');
                 $table->unsignedBigInteger('user_id');
-                $table->string('mawb')->nullable();
-                $table->unsignedBigInteger('areacode')->nullable();
                 $table->timestamps();
             });
         }
@@ -33,6 +31,6 @@ class CreateStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statuses');
+        Schema::dropIfExists('area_codes');
     }
 }
