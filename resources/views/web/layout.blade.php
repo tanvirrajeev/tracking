@@ -1872,7 +1872,7 @@ jQuery('ul.superfish').superfish();
 
                 $('#tracking-ul').empty();
                 for(i in dataObj){
-                    console.log(dataObj[i].chkid);
+                    console.log(dataObj[i].checkpoint);
                     if (dataObj[i].checkpoint  == 'Pickup Done' || dataObj[i].checkpoint  == 'Pickup Done in India'){
                         $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
                                 "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
@@ -1883,8 +1883,13 @@ jQuery('ul.superfish').superfish();
                                 "<span class=\"subdued\" id=\"created-by\">Updated By: " + dataObj[i].user +"</span>" +
                                 "</span>"+
                                 "</li>");
+                        $('#tracking-ul').append("<li id=\"dlvrd\">" +
+                                "<span class=\"bubble\"></span>" +
+                                "<span class=\"stacked-text\"> Delivered</span>" +
+                                "</span>"+
+                                "</li>");
                     }else if (dataObj[i].checkpoint  == 'Delivered'){
-                        $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                        $('#dlvrd').replaceWith("<li class=\"completed warning\" id=\"dlvrd\">" +
                                 "<span class=\"time\" id=\"created-at-rcvhub\">"+dataObj[i].time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
                                 "<span class=\"stacked-text\">"+ dataObj[i].checkpoint + "&nbsp; &nbsp; <span style=\"color: rgb(78, 184, 78);\"><i class=\"fas fa-check-circle\"></i></span>"+
@@ -1894,7 +1899,7 @@ jQuery('ul.superfish').superfish();
                                 "<i style=\"font-size: 3em; color: Orange; margin-left: 52%; margin-right: 48%;\" class=\"fas fa-people-carry\"></i>" +
                                 "</li>");
                     }else{
-                        $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                        $('#dlvrd').before("<li class=\"completed warning\" id=\"ordcrt\">" +
                                 "<span class=\"time\" id=\"created-at-rcvhub\">"+dataObj[i].time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
                                 "<span class=\"stacked-text\">"+ dataObj[i].checkpoint +

@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    @include('status.edit')
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -17,7 +18,7 @@
                     </div>
                 @endif
 
-                <div class="card-header">STATUS UPDATE</div>
+                <div class="card-header bg-orange">AWB ENTRY</div>
 
                 <div class="card-body">
 
@@ -52,8 +53,8 @@
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
-                                    <label for="mawb">MAWB</label><label class="text-danger">*</label>
-                                    <input type="text" class="form-control" name="mawb" id="mawb" autocomplete="off" required>
+                                    <label for="manifest">MANIFEST NO</label><label class="text-danger">*</label>
+                                    <input type="text" class="form-control" name="manifest" id="manifest" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="col-4">
@@ -71,7 +72,7 @@
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success" id="submit_button">SUBMIT</button>
+                                    <button type="submit" class="btn bg-purple" id="submit_button">SUBMIT</button>
                                 </div>
                             </div>
                         </div>
@@ -80,6 +81,57 @@
                 </div>
             </div>
         </div>
+
+
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-maroon">AWB</div>
+                <div class="card-body">
+
+                    <table id="table" class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                          <th>AWB</th>
+                          <th>CHECK POINT</th>
+                          <th>UPDATED BY</th>
+                          <th>MANIFEST</th>
+                          <th>ACTION</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($statuses as $item)
+                                <tr>
+                                    <td>{{ $item->awb }}</td>
+                                    <td>{{ $item->checkpoints }}</td>
+                                    <td>{{ $item->updated_by }}</td>
+                                    <td>{{ $item->manifest }}</td>
+                                    <td>
+                                        <a class="btn btn-small btn-success" href="{{ URL::to('status/' . $item->id) }}">Show</a>
+                                        {{-- <a class="btn btn-small btn-info" href="{{ URL::to('status/' . $item->id . '/edit')}}">Edit</a> --}}
+                                        {{-- <a href="{{ URL::to('status/' . $item->id).'/edit' }}" class="btn btn-xs bg-purple" data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT<i class="fas fa-edit"></i></a> --}}
+                                        <a href="" class="btn btn-xs bg-purple" data-id='.$item->id.' data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT<i class="fas fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+<div>
+    <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
+
+</div>
+
+
+
 @endsection

@@ -24,11 +24,11 @@ class WebController extends Controller
 
 
         if($awb != ''){
-            $tk = DB::table('statuses')
-            ->join('users', 'users.id', '=', 'statuses.user_id')
-            ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
-            ->select('statuses.awb as awb','checkpoints.name as checkpoint','users.name as user','statuses.checkpoint_id as chkid','statuses.created_at as time')
-            ->where('statuses.awb', $awb)
+            $tk = DB::table('trackings')
+            ->join('users', 'users.id', '=', 'trackings.user_id')
+            ->join('checkpoints', 'checkpoints.id', '=', 'trackings.checkpoint_id')
+            ->select('trackings.awb as awb','checkpoints.name as checkpoint','users.name as user','trackings.checkpoint_id as chkid','trackings.created_at as time')
+            ->where('trackings.awb', $awb)
             ->get();
             return response($tk);
         }else{

@@ -306,8 +306,16 @@
 {{-- <script src="{{ asset('js/jquery.js') }}"></script> --}}
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script> --}}
 <script src='/js/app.js'></script>
+<script src="{{ asset('js/bootstrap.js') }}"></script>
 @include('sweetalert::alert')
 
+{{-- Jquery Datables --}}
+<script src="{{ mix('js/app.js') }}"></script>
+<script>
+    $(document).ready(function () {
+      $('table').DataTable();
+    });
+</script>
 
 </body>
 </html>

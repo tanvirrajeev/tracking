@@ -38,6 +38,8 @@ Route::get('/web/mission', function () {
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::resource('/tracking', 'TrackingController');
 // Route::resource('/', 'WebController');
+
+//Get web tracking form front page
 Route::get('/', 'WebController@index');
 Route::get('/web/tracking', 'WebController@tracking');
 

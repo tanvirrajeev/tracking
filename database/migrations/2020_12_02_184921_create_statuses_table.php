@@ -20,7 +20,9 @@ class CreateStatusesTable extends Migration
                 $table->unsignedBigInteger('checkpoint_id');
                 $table->unsignedBigInteger('user_id');
                 $table->string('mawb')->nullable();
+                $table->string('manifest');
                 $table->unsignedBigInteger('areacode')->nullable();
+                $table->dateTime('status_date');
                 $table->timestamps();
             });
         }
