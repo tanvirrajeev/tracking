@@ -47,6 +47,7 @@ Route::get('/web/tracking', 'WebController@tracking');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/status', 'StatusController')->middleware('auth');
+Route::get('/statuslist', 'StatusController@statuslist')->name('status.statuslist')->middleware('auth');
 
 
 // Auth::routes();

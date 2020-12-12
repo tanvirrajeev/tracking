@@ -110,7 +110,7 @@
                                         <a class="btn btn-small btn-success" href="{{ URL::to('status/' . $item->id) }}">Show</a>
                                         {{-- <a class="btn btn-small btn-info" href="{{ URL::to('status/' . $item->id . '/edit')}}">Edit</a> --}}
                                         {{-- <a href="{{ URL::to('status/' . $item->id).'/edit' }}" class="btn btn-xs bg-purple" data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT<i class="fas fa-edit"></i></a> --}}
-                                        <a href="" class="btn btn-xs bg-purple" data-id='.$item->id.' data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT<i class="fas fa-edit"></i></a>
+                                        <a href="" class="btn btn-xs bg-purple" data-id={{$item->id}} data-bs-toggle="modal" data-bs-target="#edit">EDIT<i class="fas fa-edit"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -123,14 +123,6 @@
 </div>
 
 
-
-<div>
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button>
-
-</div>
 
 
 

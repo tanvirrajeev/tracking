@@ -45,7 +45,7 @@ class StatusController extends Controller
          $st->manifest = $request->manifest;
          $st->areacode = $request->areaCodes;
          $st->status_date = $request->created_at;
-         $st->created_at = $request->created_at;
+        //  $st->created_at = $request->created_at;
          $st->save();
          return redirect(route('status.index'))->with('toast_success','STATUS UPDATED');
     }
@@ -54,6 +54,31 @@ class StatusController extends Controller
     public function show(Status $status)
     {
         //
+    }
+
+    public function statuslist(Request $request){
+        $selstat = (isset($_GET['id']) ? $_GET['id'] : '');
+
+        if($selstat != ''){
+            $statuses = DB::table('statuses')
+                    ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
+                    ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+                    ->where('statuses.id', '=', $selstat)
+                    ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','statuses.checkpoint_id','statuses.manifest','statuses.status_date as date','statuses.areacode as areaid','area_codes.name as areacode')
+                    ->get();
+
+            $areacodes = DB::table('area_codes')->get();
+            $checkpoints =DB::table('checkpoints')->get();
+            // return response($statuses);
+            return response()->json(['statuses'=>$statuses, 'areacodes'=>$areacodes, 'checkpoints'=>$checkpoints ]);
+        }else{
+            return response("Error: Blank Request...");
+        }
+
+        // $statusrow = Status::find($selstat);
+        // $statusflag = $statusrow->flag;
+
+
     }
 
     public function edit(Status $status)

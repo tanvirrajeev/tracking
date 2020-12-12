@@ -6,9 +6,14 @@
 -->
 <html lang="en">
     <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" />
+
+
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>AdminLTE 3 | Starter</title>
+        <title>Power Line Air Express Ltd</title>
 
         {{-- <!-- Google Font: Source Sans Pro -->
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -305,17 +310,21 @@
 <script src="dist/js/adminlte.min.js"></script> --}}
 {{-- <script src="{{ asset('js/jquery.js') }}"></script> --}}
 {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.js" integrity="sha256-DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=" crossorigin="anonymous"></script> --}}
-<script src='/js/app.js'></script>
+
+{{-- <script src='/js/app.js'></script> --}}
 <script src="{{ asset('js/bootstrap.js') }}"></script>
 @include('sweetalert::alert')
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha512-AIOTidJAcHBH2G/oZv9viEGXRqDNmfdPVPYOYKGy3fti0xIplnlgMHUGfuNRzC6FkzIo0iIxgFnr9RikFxK+sw==" crossorigin="anonymous"></script>
 
 {{-- Jquery Datables --}}
-<script src="{{ mix('js/app.js') }}"></script>
+{{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 <script>
     $(document).ready(function () {
       $('table').DataTable();
     });
 </script>
+<script>$('.datetimepicker').datetimepicker();</script>
 
 </body>
 </html>

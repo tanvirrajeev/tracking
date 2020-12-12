@@ -20,7 +20,12 @@
                     <div class="col-7">
                         <div class="form-group">
                             <label for="edit-checkpoint_id">CHECK POINT</label><label class="text-danger">*</label>
-                            <select class="form-control form-control" name="edit-checkpoint_id" id="edit-checkpoint_id"></select>
+                            <select class="form-control form-control" name="edit-checkpoint_id" id="edit-checkpoint_id">
+
+                                @foreach ($checkpoint as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -41,7 +46,12 @@
                     <div class="col-4">
                         <div class="form-group">
                             <label for="edit-areaCodes">AREA CODE</label><label class="text-danger">*</label>
-                            <select class="form-control form-control" name="edit-areaCodes" id="edit-areaCodes"></select>
+                            <select class="form-control form-control" name="edit-areaCodes" id="edit-areaCodes">
+                                {{-- <option class="edit-areaCodes-selected"></option> --}}
+                                @foreach ($areaCodes as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -68,69 +78,33 @@
 $('#edit').on('show.bs.modal', function (event) {
     var id = $(event.relatedTarget).data('id');
     var st = $('#edit-form');
-
     // console.log(id);
     // st.find('#edit-awb').empty();
-    st.find('#edit-checkpoint_id').empty();
+    // st.find('#edit-checkpoint_id').empty();
     // st.find('#edit-created_at').empty();
     // st.find('#edit-manifest').empty();
-    st.find('#edit-areaCodes').empty();
+    // st.find('#edit-areaCodes-selected').empty();
 
     getstatus();
     // updatestatus();
     // Populate dropdown menu for status with selected option
     function getstatus(){
-        var sltstatusid = '';
-        var sltareaid = '';
 
         $.ajax({
             type: 'get',
             url: "{{ url('/statuslist') }}",
             data: {id:id},
             success:function(data){
-                // console.log(data.statuses);
-                // console.log(data.areacodes);
+                console.log(data);
+                for(i in data){
+                    // console.log(data[i].awb)
+                    st.find('#edit-awb').val(data[i].awb);
+                    st.find('#edit-checkpoint_id').append("<option value=" +data[i].checkpoint_id +" selected readonly>" +data[i].checkpoints+ "</option>");
+                    st.find('#edit-created_at').val(data[i].date);
+                    st.find('#edit-manifest').val(data[i].manifest);
+                    st.find('#edit-areaCodes').append("<option selected disabled value=" +data[i].areaid +">" +data[i].areacode+ "</option>");
 
-                // Setting up selected option for Checkpoints && Areacode dropdown
-                var sltstatus = data.statuses;
-                $.each(sltstatus , function(index, val) {
-                sltstatusid = val.checkpoint_id;
-                var option ="<option value=\""+val.checkpoint_id+"\" selected readonly>"+ val.checkpoints +"</option>";
-                st.find('#edit-checkpoint_id').append(option);
-
-                sltareaid = val.areaid;
-                var option ="<option value=\""+val.areaid+"\" selected readonly>"+ val.areacode +"</option>";
-                st.find('#edit-areaCodes').append(option);
-                });
-
-                // Polulate all options for all checkpoints dropdown
-                var status = data.checkpoints;
-                $.each(status , function(index, val) {
-                    if (sltstatusid != val.id){ //Populate the dropdown if the optioin is not equal to selected status ID
-                        var option ="<option value=\""+val.id+"\">"+ val.name +"</option>";
-                        st.find('#edit-checkpoint_id').append(option);
-                    }
-                });
-
-                //Populate awb, date & manifest field
-                $.each(data.statuses , function(index, val) {
-                    st.find('#edit-awb').val(val.awb);
-                    st.find('#edit-created_at').val(val.date);
-                    st.find('#edit-manifest').val(val.manifest);
-                });
-
-
-                // Setting up all options for areacode dropdown
-                $.each(data.areacodes , function(index, val) {
-                if (sltareaid != val.id){
-                    var option ="<option value=\""+val.id+"\">"+ val.name +"</option>";
-                    st.find('#edit-areaCodes').append(option);
-                    }
-                });
-
-
-
-
+                }
 
             }
         })
