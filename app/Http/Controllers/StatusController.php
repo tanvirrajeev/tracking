@@ -74,11 +74,6 @@ class StatusController extends Controller
         }else{
             return response("Error: Blank Request...");
         }
-
-        // $statusrow = Status::find($selstat);
-        // $statusflag = $statusrow->flag;
-
-
     }
 
     //Status change from Status page Modal status.edit.blade
@@ -86,14 +81,8 @@ class StatusController extends Controller
         // dd($request);
         if(!empty($request)){
 
-
-            // return response($request->awb);
             $st = New Status;
-            // $st = DB::table('statuses')
-            //         ->select('statuses.id', 'statuses.awb', 'statuses.checkpoint_id','statuses.user_id','statuses.manifest','statuses.areacode')
-            //         ->where('statuses.id', '=', $request->id)
-            //         ->first();
-            // $rid = $request->id;
+
             $st = Status::where('id', '=' , $request->id) ->first();
 
             $st->awb = $request->awb;

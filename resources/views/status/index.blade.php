@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     @include('status.edit')
+    @include('status.show')
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -107,9 +108,8 @@
                                     <td>{{ $item->updated_by }}</td>
                                     <td>{{ $item->manifest }}</td>
                                     <td>
-                                        <a class="btn btn-small btn-success" href="{{ URL::to('status/' . $item->id) }}">Show</a>
-                                        {{-- <a class="btn btn-small btn-info" href="{{ URL::to('status/' . $item->id . '/edit')}}">Edit</a> --}}
-                                        {{-- <a href="{{ URL::to('status/' . $item->id).'/edit' }}" class="btn btn-xs bg-purple" data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT<i class="fas fa-edit"></i></a> --}}
+                                        {{-- <a class="btn btn-small btn-success" href="{{ URL::to('status/' . $item->id) }}">Show</a> --}}
+                                        <a href="" class="btn btn-xs btn-success" data-id={{$item->id}} data-bs-toggle="modal" data-bs-target="#show">SHOW<i class="fas fa-edit"></i></a>
                                         <a href="" class="btn btn-xs bg-purple" data-id={{$item->id}} data-bs-toggle="modal" data-bs-target="#edit">EDIT<i class="fas fa-edit"></i></a>
                                     </td>
                                 </tr>
