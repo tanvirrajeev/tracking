@@ -1,4 +1,6 @@
   <!-- Modal -->
+
+
   <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -8,8 +10,8 @@
         </div>
         <div class="modal-body">
 
-            <form action="{{ route('status.store') }}" method="POST" id="edit-form">
-                @csrf
+            <form action="updateform" id="edit-form">
+                <meta name="csrf-token" updateform="{{ csrf_token() }}" />
                 <div class="row">
                     <div class="col-5">
                         <div class="form-group">
@@ -48,7 +50,7 @@
                 <div class="row">
                     <div class="col-2">
                         <div class="form-group">
-                            <button type="submit" class="btn bg-purple" id="edit-submit_button">SUBMIT</button>
+                            <button type="button" class="btn bg-purple" id="edit-submit_button">SUBMIT</button>
                         </div>
                     </div>
                 </div>
@@ -64,7 +66,7 @@
 
 
 <script>
-// var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('updateform');
+var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('updateform');
 $('#edit').on('show.bs.modal', function (event) {
     var id = $(event.relatedTarget).data('id');
     var st = $('#edit-form');
@@ -77,7 +79,8 @@ $('#edit').on('show.bs.modal', function (event) {
     st.find('#edit-areaCodes').empty();
 
     getstatus();
-    // updatestatus();
+    updatestatus();
+
     // Populate dropdown menu for status with selected option
     function getstatus(){
         var sltstatusid = '';
@@ -127,14 +130,69 @@ $('#edit').on('show.bs.modal', function (event) {
                     st.find('#edit-areaCodes').append(option);
                     }
                 });
-
-
-
-
-
             }
         })
     }
+
+
+    function updatestatus(){
+        $(document).on("click", "#edit-submit_button" , function() {
+
+            var awb = st.find('#edit-awb').val();
+            var date = st.find('#edit-created_at').val();
+            var manifest = st.find('#edit-manifest').val();
+            var checkpoint = st.find('#edit-checkpoint_id').val();
+            var areacode = st.find('#edit-areaCodes').val();
+
+            console.log(awb);
+            console.log(date);
+            console.log(manifest);
+            console.log(checkpoint);
+            console.log(areacode);
+
+             //SweetAlert2 Toast for AWB Update confirmation
+             const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+
+            $.ajax({
+                type: 'post',
+                url: "{{ url('/chgstatusmodal') }}",
+                data: {_token: CSRF_TOKEN,id: id, awb: awb, date: date, manifest: manifest, checkpoint: checkpoint, areacode: areacode},
+                success:function(data){
+                    // alert(data);
+                    // location.reload();
+                    // $('#getawb').find('#awbsrc1').val(awbchg);
+
+                    console.log(data);
+                    // $.each(data.request , function(index, val) {
+                    //     console.log("$data: "+ val.awb);
+                    // });
+
+                    Toast.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: 'AWB UPDATED!'
+                    });
+                    location.reload();
+                    }
+                })
+
+
+        });
+    }
+
+
+
+
+
+
+
+
+
 });
 
 </script>

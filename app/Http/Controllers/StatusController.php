@@ -81,6 +81,32 @@ class StatusController extends Controller
 
     }
 
+    //Status change from Status page Modal status.edit.blade
+    public function chgstatusmodal(Request $request){
+        // dd($request);
+        if(!empty($request)){
+
+
+            // return response($request->awb);
+            $st = New Status;
+            // $st = DB::table('statuses')
+            //         ->select('statuses.id', 'statuses.awb', 'statuses.checkpoint_id','statuses.user_id','statuses.manifest','statuses.areacode')
+            //         ->where('statuses.id', '=', $request->id)
+            //         ->first();
+            // $rid = $request->id;
+            $st = Status::where('id', '=' , $request->id) ->first();
+
+            $st->awb = $request->awb;
+            $st->checkpoint_id = $request->checkpoint;
+            $st->user_id = Auth::id();
+            $st->manifest = $request->manifest;
+            $st->areacode = $request->areacode;
+            $st->status_date = $request->date;
+            $st->save();
+            return response("AWB Updated...");
+        }
+    }
+
     public function edit(Status $status)
     {
         //

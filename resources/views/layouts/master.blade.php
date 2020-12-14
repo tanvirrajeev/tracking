@@ -325,6 +325,7 @@
     });
 </script>
 <script>$('.datetimepicker').datetimepicker();</script>
+<script src="/js/sweetalert2.js"></script>
 
 </body>
 </html>
