@@ -196,7 +196,11 @@
                 <li class="nav-item menu-open">
                     <a href="/status" class="nav-link {{ Request::is('status') ? 'active' : ''}}">
                         <i class="fas fa-tachometer-alt"></i>
-                        <p>Status Update</p>
+                        <p>STATUS UPDATE</p>
+                    </a>
+                    <a href="/search" class="nav-link {{ Request::is('search') ? 'active' : ''}}">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <p>SEARCH</p>
                     </a>
                     {{-- <ul class="nav nav-treeview">
                         <li class="nav-item">
