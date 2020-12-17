@@ -10,34 +10,27 @@
 
             <form action="updateform" id="show-form">
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-6 d-none d-lg-block">
+                        <img class="logoicon" src="{{ asset('img/apps/Packaging.jpg') }}" alt="img"/>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label for="show-awb">AWB</label><label class="text-danger">*</label>
                             <input type="text" class="form-control" name="show-awb" id="show-awb" autocomplete="off" required disabled>
                         </div>
-                    </div>
-                    <div class="col-7">
                         <div class="form-group">
                             <label for="show-checkpoint_id">CHECK POINT</label><label class="text-danger">*</label>
                             <select class="form-control form-control" name="show-checkpoint_id" id="show-checkpoint_id" disabled></select>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
                         <label for="show-created_at">STATUS DATE & TIME</label>
-                      <i class="fa fa-calendar-alt"></i>
-                      <div class="input-group date" id="p">
-                        <input type="text" class="form-control datetimepicker" name="show-created_at" id="show-created_at" autocomplete="off" required disabled><span class="input-group-addon" disabled><i class="glyphicon glyphicon-th"></i></span>
-                      </div>
-                    </div>
-                    <div class="col-4">
+                        <i class="fa fa-calendar-alt"></i>
+                        <div class="input-group date" id="p">
+                            <input type="text" class="form-control datetimepicker" name="show-created_at" id="show-created_at" autocomplete="off" required disabled><span class="input-group-addon" disabled><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
                         <div class="form-group">
                             <label for="show-manifest">MANIFEST NO</label><label class="text-danger">*</label>
                             <input type="text" class="form-control" name="show-manifest" id="show-manifest" autocomplete="off" required disabled>
                         </div>
-                    </div>
-                    <div class="col-4">
                         <div class="form-group">
                             <label for="show-areaCodes">AREA CODE</label><label class="text-danger">*</label>
                             <select class="form-control form-control" name="show-areaCodes" id="show-areaCodes" disabled></select>

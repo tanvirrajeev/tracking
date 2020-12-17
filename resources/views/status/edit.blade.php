@@ -11,46 +11,34 @@
             <form action="updateform" id="edit-form">
                 <meta name="csrf-token" updateform="{{ csrf_token() }}" />
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-6 d-none d-lg-block">
+                        <img class="logoicon" src="{{ asset('img/apps/Packaging.jpg') }}" style="width: 99%; height: 97%;"  alt="App Logo"/>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label for="edit-awb">AWB</label><label class="text-danger">*</label>
                             <input type="text" class="form-control" name="edit-awb" id="edit-awb" autocomplete="off" required>
                         </div>
-                    </div>
-                    <div class="col-7">
-                        <div class="form-group">
-                            <label for="edit-checkpoint_id">CHECK POINT</label><label class="text-danger">*</label>
-                            <select class="form-control form-control" name="edit-checkpoint_id" id="edit-checkpoint_id"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
+                        <label for="edit-checkpoint_id">CHECK POINT</label><label class="text-danger">*</label>
+                        <select class="form-control form-control" name="edit-checkpoint_id" id="edit-checkpoint_id"></select>
                         <label for="edit-created_at">STATUS DATE & TIME</label>
-                      <i class="fa fa-calendar-alt"></i>
-                      <div class="input-group date" id="p">
-                        <input type="text" class="form-control datetimepicker" name="edit-created_at" id="edit-created_at" autocomplete="off" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                      </div>
-                    </div>
-                    <div class="col-4">
+                        <i class="fa fa-calendar-alt"></i>
+                        <div class="input-group date" id="p">
+                          <input type="text" class="form-control datetimepicker" name="edit-created_at" id="edit-created_at" autocomplete="off" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
                         <div class="form-group">
                             <label for="edit-manifest">MANIFEST NO</label><label class="text-danger">*</label>
                             <input type="text" class="form-control" name="edit-manifest" id="edit-manifest" autocomplete="off" required>
                         </div>
-                    </div>
-                    <div class="col-4">
                         <div class="form-group">
                             <label for="edit-areaCodes">AREA CODE</label><label class="text-danger">*</label>
                             <select class="form-control form-control" name="edit-areaCodes" id="edit-areaCodes"></select>
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2">
                         <div class="form-group">
-                            <button type="button" class="btn bg-purple" id="edit-submit_button">SUBMIT</button>
+                            <button type="button" class="btn bg-maroon" id="edit-submit_button">SUBMIT</button>
                         </div>
                     </div>
+
                 </div>
             </form>
 
