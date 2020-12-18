@@ -169,12 +169,54 @@
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
     $(document).ready(function (){
-        //
-        // console.log("Function loaded");
+
+        var m =$('#card-manifest');
+
+        //SweetAlert2 Toast for AWB Update confirmation
+        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+
+        $('#search_awb_update').click(function(){
+            updateawb();
+        });
 
         // Manifest card update button action
         $("#search_area_update").click(function() {
-            updatearea();
+            var manifest = m.find('#manifest').val();
+            var date = m.find('#manifest_date').val();
+            if(manifest && date != ''){
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to update status for all AWB under this Area Code?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Update!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        updatearea();
+                    }
+                })
+            }else{
+                Swal.fire({
+                title: 'Fill up all fields',
+                text: "All field is necessary to update AWB by Area Code",
+                icon: 'warning',
+                // showCancelButton: true,
+                // confirmButtonColor: '#3085d6',
+                // cancelButtonColor: '#d33',
+                // confirmButtonText: 'Yes, Update!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                })
+            }
         });
 
         // Update funcion called by Update button action click function()
@@ -193,13 +235,8 @@
             // console.log(areaCodesId);
             // console.log(checkpointId);
 
-             //SweetAlert2 Toast for AWB Update confirmation
-             const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'top-end',
-                            showConfirmButton: false,
-                            timer: 2000
-                        });
+
+
 
             $.ajax({
                 type: 'post',

@@ -54,6 +54,7 @@ Route::post('/chgstatusmodal', 'StatusController@chgstatusmodal')->name('status.
 Route::resource('/search', 'SearchController')->middleware('auth');
 Route::get('/getawb', 'SearchController@getawb')->name('search.getawb')->middleware('auth');
 Route::post('/update-area', 'SearchController@updatearea')->name('search.updatearea')->middleware('auth');
+Route::post('/update-awb', 'SearchController@updateawb')->name('search.updateawb')->middleware('auth');
 
 
 // Auth::routes();

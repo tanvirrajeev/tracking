@@ -27,7 +27,7 @@ class WebController extends Controller
             $tk = DB::table('trackings')
             ->join('users', 'users.id', '=', 'trackings.user_id')
             ->join('checkpoints', 'checkpoints.id', '=', 'trackings.checkpoint_id')
-            ->select('trackings.awb as awb','checkpoints.name as checkpoint','users.name as user','trackings.checkpoint_id as chkid','trackings.created_at as time')
+            ->select('trackings.awb as awb','checkpoints.name as checkpoint','users.name as user','trackings.checkpoint_id as chkid','trackings.status_date as time')
             ->where('trackings.awb', $awb)
             ->get();
             return response($tk);
