@@ -11,7 +11,7 @@
             <form action="updateform" id="show-form">
                 <div class="row">
                     <div class="col-6 d-none d-lg-block">
-                        <img class="logoicon" src="{{ asset('img/apps/Packaging.jpg') }}" alt="img"/>
+                        <img class="logoicon" src="{{ asset('img/apps/Packaging.jpg') }}" style="width: 99%; height: 97%;" alt="img"/>
                     </div>
                     <div class="col-6">
                         <div class="form-group">

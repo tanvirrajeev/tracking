@@ -8,79 +8,79 @@ use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $areaCodes = DB::table('area_codes')->get();
+        $checkPoints = DB::table('checkpoints')->get();
+        $statuses = DB::table('statuses')
+        ->join('users', 'users.id', '=', 'statuses.user_id')
+        ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
+        ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+        ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest','area_codes.name as areacode')
+        ->get();
 
-        return view('search.index', compact('areaCodes'));
+        return view('search.index', compact('areaCodes','checkPoints','statuses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Search  $search
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Search $search)
-    {
+    public function getawb(Request $request){
         //
+        // dd($request);
+
+        // Request from SEARCH & UPDATE BY AREA CODE Modal
+        if($request->exists('manifest')){
+            // dd($request);
+            $areaCodes = DB::table('area_codes')->get();
+            $checkPoints = DB::table('checkpoints')->get();
+            $statuses = DB::table('statuses')
+            ->join('users', 'users.id', '=', 'statuses.user_id')
+            ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
+            ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+            ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest','area_codes.id as areaId','area_codes.name as areacode')
+            ->where('statuses.manifest', '=', $request->manifest)
+            ->where('area_codes.name', '=', $request->areaCodes)
+            ->get();
+
+            return view('search.index', compact('areaCodes','checkPoints','statuses'));
+        }else{ //Request from SEARCH & UPDATE BY AWB Modal
+            $areaCodes = DB::table('area_codes')->get();
+            $checkPoints = DB::table('checkpoints')->get();
+            $statuses = DB::table('statuses')
+            ->join('users', 'users.id', '=', 'statuses.user_id')
+            ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
+            ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+            ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest', 'area_codes.name as areacode')
+            ->where('statuses.awb', '=', $request->awb)
+            ->get();
+
+            return view('search.index', compact('areaCodes','checkPoints','statuses'));
+        }
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Search  $search
-     * @return \Illuminate\Http\Response
-     */
+    public function show(Search $search){
+        //
+        //dd($search);
+    }
+
     public function edit(Search $search)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Search  $search
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Search $search)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Search  $search
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Search $search)
     {
         //

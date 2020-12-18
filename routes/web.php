@@ -50,8 +50,9 @@ Route::resource('/status', 'StatusController')->middleware('auth');
 Route::get('/statuslist', 'StatusController@statuslist')->name('status.statuslist')->middleware('auth');
 Route::post('/chgstatusmodal', 'StatusController@chgstatusmodal')->name('status.chgstatusmodal')->middleware('auth');
 
-//
+//Search & Update
 Route::resource('/search', 'SearchController')->middleware('auth');
+Route::get('/getawb', 'SearchController@getawb')->name('search.getawb')->middleware('auth');
 
 
 // Auth::routes();

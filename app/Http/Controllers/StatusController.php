@@ -17,7 +17,8 @@ class StatusController extends Controller
         $statuses = DB::table('statuses')
                     ->join('users', 'users.id', '=', 'statuses.user_id')
                     ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
-                    ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest')
+                    ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+                    ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest', 'area_codes.name as areacode')
                     ->get();
 
         // $statuses = DB::table('statuses')->get();

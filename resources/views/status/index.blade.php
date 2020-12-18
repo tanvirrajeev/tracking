@@ -97,6 +97,7 @@
                           <th>CHECK POINT</th>
                           <th>UPDATED BY</th>
                           <th>MANIFEST</th>
+                          {{-- <th>AREA CODE</th> --}}
                           <th>ACTION</th>
                         </tr>
                         </thead>
@@ -107,6 +108,7 @@
                                     <td>{{ $item->checkpoints }}</td>
                                     <td>{{ $item->updated_by }}</td>
                                     <td>{{ $item->manifest }}</td>
+                                    {{-- <td>{{ $item->areacode }}</td> --}}
                                     <td>
                                         {{-- <a class="btn btn-small btn-success" href="{{ URL::to('status/' . $item->id) }}">Show</a> --}}
                                         <a href="" class="btn btn-xs btn-success" data-id={{$item->id}} data-bs-toggle="modal" data-bs-target="#show">SHOW<i class="fas fa-edit"></i></a>
