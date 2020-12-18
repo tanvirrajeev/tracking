@@ -12,7 +12,7 @@
 
                 <div class="card-header bg-orange">SEARCH & UPDATE BY AWB</div>
 
-                <div class="card-body">
+                <div class="card-body" id="card-awb">
 
                     <form action="{{ route('search.getawb') }}" method="GET">
                         <div class="row">
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-7">
                                 <div class="form-group">
                                     <label for="awb-checkpoint">CHECK POINT</label>
                                     <select class="form-control form-control" name="awb-checkpoint" id="awb-checkpoint">
@@ -41,11 +41,18 @@
                                 </select>
                                 </div>
                             </div>
+                            <div class="col-5">
+                                <label for="awb_date">DATE & TIME</label>
+                                <i class="fa fa-calendar-alt"></i>
+                                <div class="input-group date" id="p">
+                                  <input type="text" class="form-control datetimepicker" name="awb_date" id="awb_date" autocomplete="off"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <button type="submit" class="btn bg-pink" id="search_awb_update">UPDATE</button>
+                                    <button type="button" class="btn bg-pink" id="search_awb_update">UPDATE</button>
                                 </div>
                             </div>
                         </div>
@@ -170,6 +177,7 @@
 
     $(document).ready(function (){
 
+        var a =$('#card-awb');
         var m =$('#card-manifest');
 
         //SweetAlert2 Toast for AWB Update confirmation
@@ -218,6 +226,24 @@
                 })
             }
         });
+
+        //Update by AWB
+        function updateawb(){
+            var awb = a.find('#awb').val();
+            var checkpointId = a.find('#awb-checkpoint option:selected').attr('id');
+            var date = a.find('#awb_date').val();
+            // alert(checkpoint);
+
+            $.ajax({
+                type: 'post',
+                url: "{{ url('/update-awb') }}",
+                data: {_token: CSRF_TOKEN, awb: awb, checkpointId: checkpointId, date: date},
+                success:function(data){
+                    // alert(data);
+                }
+
+            });
+        }
 
         // Update funcion called by Update button action click function()
         function updatearea (){

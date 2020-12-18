@@ -68,6 +68,43 @@ class SearchController extends Controller
 
     }
 
+    public function updateawb(Request $request){
+
+        if($request->exists('awb')){
+            // $sltawb = $request->awb;
+            $statuses = DB::table('statuses')
+                    ->where('statuses.awb', '=', $request->awb)
+                    ->get();
+
+                    foreach ($statuses as $item) {
+                        $st = New Status;
+                        $st = Status::find($item->id);
+                        $st->awb = $item->awb;
+                        $st->checkpoint_id = $request->checkpointId;
+                        $st->user_id = Auth::id();
+                        $st->manifest = $item->manifest;
+                        $st->areacode = $item->areacode;
+                        $st->status_date = $request->date;
+                        $st->save();
+                    }
+
+            // $st = New Status;
+            // $st = Status::find($sltawb);
+            // $st->awb = $request->awb;
+            // $st->checkpoint_id = $request->checkpointId;
+            // $st->user_id = Auth::id();
+            // // $st->manifest = $statuses->manifest;
+            // // $st->areacode = $statuses->areaCodesId;
+            // $st->status_date = $request->date;
+            // $st->save();
+
+            // return response("AWB Updated...");
+            return response($st);
+        }else{
+            return response("AWB Empty");
+        }
+    }
+
     public function updatearea(Request $request){
 
         if($request->exists('manifest')){
