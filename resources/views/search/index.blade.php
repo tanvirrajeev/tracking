@@ -189,7 +189,38 @@
                         });
 
         $('#search_awb_update').click(function(){
-            updateawb();
+            var awb = a.find('#awb').val();
+            var date = a.find('#awb_date').val();
+
+            if(awb && date != ''){
+                Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to update status?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Update!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        updateawb();
+                    }
+                })
+            }else{
+                Swal.fire({
+                title: 'Fill up all fields',
+                text: "All fields are necessary to update AWB",
+                icon: 'warning',
+                // showCancelButton: true,
+                // confirmButtonColor: '#3085d6',
+                // cancelButtonColor: '#d33',
+                // confirmButtonText: 'Yes, Update!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // location.reload();
+                    }
+                })
+            }
         });
 
         // Manifest card update button action
@@ -213,7 +244,7 @@
             }else{
                 Swal.fire({
                 title: 'Fill up all fields',
-                text: "All field is necessary to update AWB by Area Code",
+                text: "All fields are necessary to update AWB by Area Code",
                 icon: 'warning',
                 // showCancelButton: true,
                 // confirmButtonColor: '#3085d6',
@@ -221,7 +252,7 @@
                 // confirmButtonText: 'Yes, Update!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        location.reload();
+                        // location.reload();
                     }
                 })
             }
@@ -240,8 +271,31 @@
                 data: {_token: CSRF_TOKEN, awb: awb, checkpointId: checkpointId, date: date},
                 success:function(data){
                     // alert(data);
-                }
+                    // console.log(data);
 
+                    if(data == '1'){
+                        Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: 'AWB UPDATED!'
+                        });
+                        location.reload();
+                    }else{
+                        Swal.fire({
+                        title: 'AWB Not Found',
+                        text: "Check AWB whether it is correct or not",
+                        icon: 'warning',
+                        // showCancelButton: true,
+                        // confirmButtonColor: '#3085d6',
+                        // cancelButtonColor: '#d33',
+                        // confirmButtonText: 'Yes, Update!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // location.reload();
+                            }
+                        })
+                    }
+                }
             });
         }
 
@@ -269,13 +323,31 @@
                 url: "{{ url('/update-area') }}",
                 data: {_token: CSRF_TOKEN, manifest: manifest, areaCodesId: areaCodesId,checkpointId: checkpointId, date: date},
                 success:function(data){
+                    // alert(data);
                     // console.log(data);
-                    Toast.fire({
-                    type: 'success',
-                    icon: 'success',
-                    title: 'AWB UPDATED!'
-                    });
-                    location.reload();
+
+                    if(data == '1'){
+                        Toast.fire({
+                        type: 'success',
+                        icon: 'success',
+                        title: 'AWB UPDATED!'
+                        });
+                        location.reload();
+                    }else{
+                        Swal.fire({
+                        title: 'AWB Not Found',
+                        text: "Check Area Code whether it is correct or not",
+                        icon: 'warning',
+                        // showCancelButton: true,
+                        // confirmButtonColor: '#3085d6',
+                        // cancelButtonColor: '#d33',
+                        // confirmButtonText: 'Yes, Update!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // location.reload();
+                            }
+                        })
+                    }
                 }
 
             });
