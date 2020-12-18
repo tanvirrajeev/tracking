@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="container">
     @include('status.edit')
     @include('status.show')
@@ -32,8 +33,8 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="form-group">
-                                    <label for="areaCodes">CHECK POINT</label>
-                                    <select class="form-control form-control" name="areaCodes" id="search_area_code">
+                                    <label for="awb-checkpoint">CHECK POINT</label>
+                                    <select class="form-control form-control" name="awb-checkpoint" id="awb-checkpoint">
                                     @foreach ($checkPoints as $item)
                                         <option id="{{ $item->id}}">{{ $item->name}}</option>
                                     @endforeach
@@ -44,7 +45,7 @@
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <button type="submit" class="btn bg-pink" id="search_area">UPDATE</button>
+                                    <button type="submit" class="btn bg-pink" id="search_awb_update">UPDATE</button>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +61,7 @@
 
                 <div class="card-header bg-orange">SEARCH & UPDATE BY AREA CODE</div>
 
-                <div class="card-body">
+                <div class="card-body" id="card-manifest">
 
                     <form action="{{ route('search.getawb') }}" method="GET">
                         <div class="row">
@@ -73,7 +74,7 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="areaCodes">AREA CODE</label><label class="text-danger">*</label>
-                                    <select class="form-control form-control" name="areaCodes" id="search_area_code">
+                                    <select class="form-control form-control" name="areaCodes" id="search_areaCodes">
                                     @foreach ($areaCodes as $item)
                                         <option id="{{ $item->id}}">{{ $item->name}}</option>
                                     @endforeach
@@ -90,7 +91,7 @@
                         </div>
                         <div class="row">
                             <div class="row">
-                                <div class="col-11">
+                                <div class="col-7">
                                     <div class="form-group">
                                         <label for="manifest-checkpoint">CHECK POINT</label>
                                         <select class="form-control form-control" name="manifest-checkpoint" id="manifest-checkpoint">
@@ -100,13 +101,20 @@
                                     </select>
                                     </div>
                                 </div>
+                                <div class="col-5">
+                                    <label for="manifest_date">DATE & TIME</label>
+                                    <i class="fa fa-calendar-alt"></i>
+                                    <div class="input-group date" id="p">
+                                      <input type="text" class="form-control datetimepicker" name="manifest_date" id="manifest_date" autocomplete="off"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-2">
                                 <div class="form-group">
-                                    <button type="button" class="btn bg-pink" id="search_area">UPDATE</button>
+                                    <button type="button" class="btn bg-pink" id="search_area_update">UPDATE</button>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +124,7 @@
             </div>
         </div>
 
-        {{-- Display Table Modal  --}}
+        {{-- Display Table Card  --}}
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-maroon">AWB</div>
@@ -157,6 +165,67 @@
 </div>
 
 
+<script>
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+    $(document).ready(function (){
+        //
+        // console.log("Function loaded");
+
+        // Manifest card update button action
+        $("#search_area_update").click(function() {
+            updatearea();
+        });
+
+        // Update funcion called by Update button action click function()
+        function updatearea (){
+            var m =$('#card-manifest');
+            var manifest = m.find('#manifest').val();
+            // var areaCodes = m.find('#search_areaCodes').val();
+            // var checkpoint = m.find('#manifest-checkpoint').val();
+            var areaCodesId = m.find('#search_areaCodes option:selected').attr('id');
+            var checkpointId = m.find('#manifest-checkpoint option:selected').attr('id');
+            var date = m.find('#manifest_date').val();
+
+            // console.log(manifest);
+            // console.log(areaCodes);
+            // console.log(checkpoint);
+            // console.log(areaCodesId);
+            // console.log(checkpointId);
+
+             //SweetAlert2 Toast for AWB Update confirmation
+             const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+
+            $.ajax({
+                type: 'post',
+                url: "{{ url('/update-area') }}",
+                data: {_token: CSRF_TOKEN, manifest: manifest, areaCodesId: areaCodesId,checkpointId: checkpointId, date: date},
+                success:function(data){
+                    // console.log(data);
+                    Toast.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: 'AWB UPDATED!'
+                    });
+                    location.reload();
+                }
+
+            });
+
+
+        }
+
+
+
+
+    });
+
+</script>
 
 
 

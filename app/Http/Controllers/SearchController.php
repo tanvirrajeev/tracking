@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Search;
+use App\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
@@ -64,6 +66,38 @@ class SearchController extends Controller
             return view('search.index', compact('areaCodes','checkPoints','statuses'));
         }
 
+    }
+
+    public function updatearea(Request $request){
+
+        if($request->exists('manifest')){
+            $statuses = DB::table('statuses')
+                        ->where('statuses.manifest', '=', $request->manifest)
+                        ->where('statuses.areacode', '=', $request->areaCodesId)
+                        ->get();
+
+            foreach ($statuses as $item) {
+                $st = New Status;
+                $st = Status::find($item->id);
+                $st->awb = $item->awb;
+                $st->checkpoint_id = $request->checkpointId;
+                $st->user_id = Auth::id();
+                $st->manifest = $item->manifest;
+                $st->areacode = $request->areaCodesId;
+                $st->status_date = $request->date;
+                $st->save();
+            }
+
+
+            // return response($statuses);
+            return response("AWB Updated...");
+
+            // return response($request->manifest);
+            // return response($request->areaCodesId);
+            // return response($request->checkpointId);
+            // return response($request->date);
+        }
+        // dd($request);
     }
 
     public function show(Search $search){
