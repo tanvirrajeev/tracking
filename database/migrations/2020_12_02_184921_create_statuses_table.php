@@ -22,6 +22,9 @@ class CreateStatusesTable extends Migration
                 $table->string('mawb')->nullable();
                 $table->string('manifest');
                 $table->unsignedBigInteger('areacode')->nullable();
+                $table->unsignedBigInteger('third_party_id')->nullable();
+                $table->string('third_party_awb')->nullable();
+                $table->string('received_by')->nullable();
                 $table->dateTime('status_date');
                 $table->timestamps();
             });

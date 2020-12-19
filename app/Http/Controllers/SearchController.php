@@ -69,36 +69,35 @@ class SearchController extends Controller
     }
 
     public function updateawb(Request $request){
-            $data1 = 1;
-            $data2 = 2;
+        $data1 = 1; //Job Success
+        $data2 = 2; //Job Failed
 
-            // $sltawb = $request->awb;
-            $statuses = DB::table('statuses')
-                    ->where('statuses.awb', '=', $request->awb)
-                    ->get();
-
-                foreach ($statuses as $item) {
-                    if($item->id != ''){
-                        $st = New Status;
-                        $st = Status::find($item->id);
-                        $st->awb = $item->awb;
-                        $st->checkpoint_id = $request->checkpointId;
-                        $st->user_id = Auth::id();
-                        $st->manifest = $item->manifest;
-                        $st->areacode = $item->areacode;
-                        $st->status_date = $request->date;
-                        $st->save();
-                        return response($data1);
-                    }else{
-                        return response($data2);
-                    }
-                }
-                return response($data2);
+        // $sltawb = $request->awb;
+        $statuses = DB::table('statuses')
+                ->where('statuses.awb', '=', $request->awb)
+                ->get();
+        foreach ($statuses as $item) {
+               if($item->id != ''){
+                   $st = New Status;
+                   $st = Status::find($item->id);
+                   $st->awb = $item->awb;
+                   $st->checkpoint_id = $request->checkpointId;
+                   $st->user_id = Auth::id();
+                   $st->manifest = $item->manifest;
+                   $st->areacode = $item->areacode;
+                   $st->status_date = $request->date;
+                   $st->save();
+                   return response($data1);
+               }else{
+                   return response($data2);
+               }
+           }
+        return response($data2);
     }
 
     public function updatearea(Request $request){
-        $data1 = 1;
-        $data2 = 2;
+        $data1 = 1; //Job Success
+        $data2 = 2; //Job Failed
 
         if($request->exists('manifest')){
             $statuses = DB::table('statuses')

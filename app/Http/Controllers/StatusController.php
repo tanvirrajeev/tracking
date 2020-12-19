@@ -81,6 +81,7 @@ class StatusController extends Controller
     public function chgstatusmodal(Request $request){
         // dd($request);
         if(!empty($request)){
+            // dd($request);
 
             $st = New Status;
 
@@ -91,6 +92,9 @@ class StatusController extends Controller
             $st->user_id = Auth::id();
             $st->manifest = $request->manifest;
             $st->areacode = $request->areacode;
+            $st->received_by = $request->rcvby;
+            $st->third_party_id = $request->third_party_company;
+            $st->third_party_awb = $request->third_party_awb;
             $st->status_date = $request->date;
             $st->save();
             return response("AWB Updated...");
