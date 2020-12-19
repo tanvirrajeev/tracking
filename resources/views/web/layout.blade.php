@@ -1864,7 +1864,7 @@ jQuery('ul.superfish').superfish();
             url: "{{ url('/web/tracking') }}",
             data: {awb:awb},
             success:function(data){
-                console.log(data);
+                // console.log(data);
                 // console.log(data[]);
                 var dataObj = JSON.parse(data);
                 // console.log(dataObj[0].checkpoint);
@@ -1872,7 +1872,7 @@ jQuery('ul.superfish').superfish();
 
                 $('#tracking-ul').empty();
                 for(i in dataObj){
-                    console.log(dataObj[i].checkpoint);
+                    // console.log(dataObj[i].checkpoint);
                     if (dataObj[i].checkpoint  == 'Pickup Done' || dataObj[i].checkpoint  == 'Pickup Done in India'){
                         $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
                                 "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
