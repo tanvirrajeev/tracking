@@ -64,14 +64,28 @@ class StatusController extends Controller
             $statuses = DB::table('statuses')
                     ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
                     ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+                    // ->join('third_parties', 'third_parties.id', '=', 'statuses.third_party_id')
                     ->where('statuses.id', '=', $selstat)
-                    ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','statuses.checkpoint_id','statuses.manifest','statuses.status_date as date','statuses.areacode as areaid','area_codes.name as areacode')
+                    ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','statuses.checkpoint_id','statuses.manifest','statuses.status_date as date','statuses.areacode as areaid','statuses.third_party_awb as third_party_awb','statuses.received_by as received_by','area_codes.name as areacode')
                     ->get();
 
             $areacodes = DB::table('area_codes')->get();
             $checkpoints =DB::table('checkpoints')->get();
+            $thirdParties = DB::table('third_parties')->get();
+
+            //Check if there exists any data to table for statuses.3rd_party
+
+            $isThirdPartyExists = DB::table('statuses')
+                                ->join('third_parties', 'third_parties.id', '=', 'statuses.third_party_id')
+                                ->where('statuses.id', '=', $selstat)
+                                ->select('statuses.id', 'statuses.third_party_awb as third_party_awb','statuses.received_by as received_by','third_parties.id as third_party_id','third_parties.company as third_party_company','third_parties.web as third_party_web')
+                                ->get();
+            if($isThirdPartyExists->isEmpty()){
+                $isThirdPartyExists = 'NULL';
+            }
+
             // return response($statuses);
-            return response()->json(['statuses'=>$statuses, 'areacodes'=>$areacodes, 'checkpoints'=>$checkpoints ]);
+            return response()->json(['statuses'=>$statuses, 'areacodes'=>$areacodes, 'checkpoints'=>$checkpoints, 'isThirdPartyExists'=>$isThirdPartyExists, 'thirdParties'=>$thirdParties ]);
         }else{
             return response("Error: Blank Request...");
         }
@@ -93,7 +107,9 @@ class StatusController extends Controller
             $st->manifest = $request->manifest;
             $st->areacode = $request->areacode;
             $st->received_by = $request->rcvby;
-            $st->third_party_id = $request->third_party_company;
+            if(!empty($request->third_party_company)){ //Do not update if the status != "78-Shipment connected to"
+                $st->third_party_id = $request->third_party_company;
+            }
             $st->third_party_awb = $request->third_party_awb;
             $st->status_date = $request->date;
             $st->save();

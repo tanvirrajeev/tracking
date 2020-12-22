@@ -3,10 +3,10 @@
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <div class="container">
-    @include('status.edit')
-    @include('status.show')
+    @include('status.edit') {{-- edit modal  --}}
+    @include('status.show') {{-- show modal  --}}
     <div class="row justify-content-center">
-        {{-- AWB Modal  --}}
+        {{-- AWB Card  --}}
         <div class="col-md-6">
             <div class="card">
 
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        {{-- Manifest Modal  --}}
+        {{-- Manifest Card  --}}
         <div class="col-md-6">
             <div class="card">
 

@@ -1,4 +1,4 @@
-  <!-- Modal -->
+  <!-- Edit Modal -->
   <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -24,19 +24,16 @@
                             <select class="form-control form-control" name="edit-checkpoint_id" id="edit-checkpoint_id"></select>
                         </div>
                         <div class="form-group"> {{-- Hidden Receive_by DOM  --}}
-                            <input type="text" class="form-control" id="rcvby" name="rcvby" style="display:none" placeholder="Receiver's Name">
+                            <input type="text" class="form-control" id="rcvby" name="rcvby" placeholder="Receiver's Name"> {{-- style="display:none" --}}
                         </div>
                         <div class="form-group"> {{-- Hidden third party company DOM  --}}
-                            <select class="form-control form-control" name="third_party_company" id="third_party_company" style="display:none">
-                                <option value="1">Company1</option>
-                                <option value="2">Company2</option>
-                            </select>
+                            <select class="form-control form-control" name="third_party_company" id="third_party_company" ></select> {{-- style="display:none" --}}
                         </div>
                         <div class="form-group"> {{-- Hidden third party AWB DOM  --}}
-                            <input type="text" class="form-control" id="third_party_awb" name="third_party_awb" style="display:none" placeholder="Third Party AWB">
+                            <input type="text" class="form-control" id="third_party_awb" name="third_party_awb" placeholder="Third Party AWB"> {{-- style="display:none" --}}
                         </div>
                         <div class="form-group"> {{-- Hidden third party Web DOM  --}}
-                            <input type="text" class="form-control" id="third_party_web" name="third_party_web" style="display:none" placeholder="Third Party Web Link">
+                            <input type="text" class="form-control" id="third_party_web" name="third_party_web" placeholder="Third Party Web Link"> {{-- style="display:none"  --}}
                         </div>
                         <label for="edit-created_at">STATUS DATE & TIME</label>
                         <i class="fa fa-calendar-alt"></i>
@@ -82,6 +79,8 @@ $('#edit').on('show.bs.modal', function (event) {
     st.find('#edit-areaCodes').empty();
     st.find('#rcvby').empty();
     st.find('#rcvby').hide();
+    st.find('#third_party_company').empty(); //third_party_company
+    st.find('#third_party_company').hide(); //third_party_company
 
     getStatus();
     updateStatus();
@@ -92,14 +91,19 @@ $('#edit').on('show.bs.modal', function (event) {
     function getStatus(){
         var sltstatusid = '';
         var sltareaid = '';
+        // st.find('#third_party_company').empty();
 
         $.ajax({
             type: 'get',
             url: "{{ url('/statuslist') }}",
             data: {id:id},
             success:function(data){
+                console.log(data.statuses);
+                console.log(data.checkpoints);
                 // console.log(data.statuses);
-                // console.log(data.areacodes);
+                console.log(data.areacodes);
+                console.log(data.isThirdPartyExists);
+                console.log(data);
 
                 // Setting up selected option for Checkpoints && Areacode dropdown
                 var sltstatus = data.statuses;
@@ -127,8 +131,40 @@ $('#edit').on('show.bs.modal', function (event) {
                     st.find('#edit-awb').val(val.awb);
                     st.find('#edit-created_at').val(val.date);
                     st.find('#edit-manifest').val(val.manifest);
+                    st.find('#rcvby').val(val.received_by);
+                    //var chk_comp = val.third_party_company; //st.find('#third_party_company').
+                    st.find('#third_party_awb').val(val.third_party_awb);
+                    st.find('#third_party_web').val(val.third_party_web);
                 });
 
+                //Populate Company DOM (for both hidden or not)
+                if(data.isThirdPartyExists == "NULL"){
+                    console.log("NULL");
+                    $.each(data.thirdParties , function(index, val) {
+                        var option ="<option value=\""+val.id+"\">"+ val.company +"</option>";
+                        st.find('#third_party_company').append(option);
+
+                        // if(sltstatusid == '78'){
+                        // var option ="<option value=\""+val.id+"\">"+ val.company +"</option>";
+                        // st.find('#third_party_company').append(option);
+                        // }else{
+                        //     var option ="<option value=\"\">"+ val.company +"</option>";
+                        //     st.find('#third_party_company').append(option);
+                        // }
+
+                    });
+                }else{
+                    console.log("NOT NULL");
+
+                    // console.log(data.isThirdPartyExists);
+                    // console.log(data.thirdParties);
+
+                    $.each(data.isThirdPartyExists , function(index, val) {
+                        // var option ="<option value=\""+val.id+"\">"+ val.third_party_company +"</option>";
+                        var option ="<option value=\""+val.third_party_id+"\">"+ val.third_party_company +"</option>";
+                        st.find('#third_party_company').append(option);
+                    });
+                }
 
                 // Setting up all options for areacode dropdown
                 $.each(data.areacodes , function(index, val) {
@@ -155,11 +191,28 @@ $('#edit').on('show.bs.modal', function (event) {
             var third_party_awb = st.find('#third_party_awb').val();
             var third_party_web = st.find('#third_party_web').val();
 
-            console.log(awb);
-            console.log(date);
-            console.log(manifest);
-            console.log(checkpoint);
-            console.log(areacode);
+
+//Populate Company DOM (for both hidden or not)
+// if(data.isThirdPartyExists == "NULL"){
+//                     console.log("NULL");
+//                     $.each(data.thirdParties , function(index, val) {
+//                         var option ="<option value=\""+val.id+"\">"+ val.company +"</option>";
+//                         st.find('#third_party_company').append(option);
+//                     });
+//                 }else{
+//                     console.log("NOT NULL");
+
+//                     $.each(data.isThirdPartyExists , function(index, val) {
+//                         var option ="<option value=\""+val.id+"\">"+ val.third_party_company +"</option>";
+//                         st.find('#third_party_company').append(option);
+//                     });
+//                 }
+
+            // console.log(awb);
+            // console.log(date);
+            // console.log(manifest);
+            // console.log(checkpoint);
+            // console.log(areacode);
 
              //SweetAlert2 Toast for AWB Update confirmation
              const Toast = Swal.mixin({
@@ -170,7 +223,23 @@ $('#edit').on('show.bs.modal', function (event) {
                         });
 
 
-            $.ajax({
+            if(checkpoint != 78){ //Not sending third_party_company: third_party_company, if the status == "78-Shipment conected to"
+                $.ajax({
+                type: 'post',
+                url: "{{ url('/chgstatusmodal') }}",
+                data: {_token: CSRF_TOKEN,id: id, awb: awb, date: date, manifest: manifest, checkpoint: checkpoint, areacode: areacode, rcvby: rcvby, third_party_awb: third_party_awb},
+                success:function(data){
+
+                    Toast.fire({
+                    type: 'success',
+                    icon: 'success',
+                    title: 'AWB UPDATED!'
+                    });
+                    location.reload();
+                    }
+                })
+            }else{
+                $.ajax({
                 type: 'post',
                 url: "{{ url('/chgstatusmodal') }}",
                 data: {_token: CSRF_TOKEN,id: id, awb: awb, date: date, manifest: manifest, checkpoint: checkpoint, areacode: areacode, rcvby: rcvby, third_party_company: third_party_company, third_party_awb: third_party_awb},
@@ -184,6 +253,9 @@ $('#edit').on('show.bs.modal', function (event) {
                     location.reload();
                     }
                 })
+            }
+
+
         });
     }
 
@@ -197,7 +269,7 @@ $('#edit').on('show.bs.modal', function (event) {
             // console.log("Check Point ID: " + $sltchkpoint);
 
 
-            if($sltchkpoint == 43){             //if the status is "Delivered"
+            if($sltchkpoint == 35){ //if the status is "Delivered"
                 // console.log("Check Point IDxx: " + $sltchkpoint);
 
                 //Show Receive_by DOM
@@ -211,7 +283,7 @@ $('#edit').on('show.bs.modal', function (event) {
                 st.find('#third_party_awb').prop('required',false);
                 st.find('#third_party_web').hide();
                 st.find('#third_party_web').prop('required',false);
-            }else if($sltchkpoint == 94){       //if the status is "Shipment connected to"
+            }else if($sltchkpoint == 78){       //if the status is "Shipment connected to"
                 // console.log("Check Point IDxx: " + $sltchkpoint);
                 //Hide Receive_by DOM
                 st.find('#rcvby').hide();
@@ -228,12 +300,17 @@ $('#edit').on('show.bs.modal', function (event) {
             }else{
                 st.find('#rcvby').hide();
                 st.find('#rcvby').prop('required',false);
+
+
                 st.find('#third_party_company').hide();
                 st.find('#third_party_company').prop('required',false);
                 st.find('#third_party_awb').hide();
                 st.find('#third_party_awb').prop('required',false);
                 st.find('#third_party_web').hide();
                 st.find('#third_party_web').prop('required',false);
+
+                // var option ="<option value=\"\">""</option>";
+                // st.find('#third_party_company').append(option);
             }
 
         });
