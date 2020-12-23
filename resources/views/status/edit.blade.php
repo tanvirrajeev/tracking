@@ -32,6 +32,9 @@
                         <div class="form-group"> {{-- Hidden third party AWB DOM  --}}
                             <input type="text" class="form-control" id="third_party_awb" name="third_party_awb" placeholder="Third Party AWB"> {{-- style="display:none" --}}
                         </div>
+                        <div class="form-group"> {{-- Hidden selected chekcpoints option->name DOM. For latter use on showDom() to use checkpoints name insted of ID like '78'.   --}}
+                            <input type="text" class="form-control" id="edit-checkpoint_name" name="edit-checkpoint_name" style="display:none"> {{--  --}}
+                        </div>
                         {{-- <div class="form-group"> Hidden third party Web DOM  --}}
                             {{-- <input type="text" class="form-control" id="third_party_web" name="third_party_web" placeholder="Third Party Web Link"> style="display:none"  --}}
                         {{-- </div> --}}
@@ -114,6 +117,10 @@ $('#edit').on('show.bs.modal', function (event) {
                 sltstatusid = val.checkpoint_id;
                 var option ="<option value=\""+val.checkpoint_id+"\" selected readonly>"+ val.checkpoints +"</option>";
                 st.find('#edit-checkpoint_id').append(option);
+
+                // var sltchkpointName = val.checkpoints;
+                // console.log(sltchkpointName);
+                // st.find('#edit-checkpoint_name').append(option);
 
                 sltareaid = val.areaid;
                 var option ="<option value=\""+val.areaid+"\" selected readonly>"+ val.areacode +"</option>";
@@ -211,6 +218,10 @@ $('#edit').on('show.bs.modal', function (event) {
 
             //If the user only select option '78-Shipment connected to' then only this fild will update.
             //otherwise not.
+            // $sltchkpointName = '';
+            // $sltchkpointName = $(this).find('option:selected').text(); //Get the selected option->Name
+            console.log("ckp name: " + checkpoint);
+            // if($sltchkpointName != "Shipment connected to"){ //Not sending third_party_company: third_party_company, if the status == "78-Shipment conected to"
             if(checkpoint != 78){ //Not sending third_party_company: third_party_company, if the status == "78-Shipment conected to"
                 $.ajax({
                 type: 'post',
@@ -252,12 +263,16 @@ $('#edit').on('show.bs.modal', function (event) {
         //Check for Check Point dropdown change
         st.find('#edit-checkpoint_id').change(function() {
 
-            sltchkpoint = '';
+            $sltchkpoint = '';
             $sltchkpoint = st.find('#edit-checkpoint_id').val();
-            // console.log("Check Point ID: " + $sltchkpoint);
+
+            $sltchkpointName = '';
+            $sltchkpointName = $(this).find('option:selected').text(); //Get the selected option->Name for the if clause
+            // console.log("Check Point Name: " + $sltchkpointName);
 
 
-            if($sltchkpoint == 35){ //if the status is "Delivered"
+            // if($sltchkpoint == 35){ //if the status is "Delivered"
+            if($sltchkpointName == "Delivered"){ //if the status is "Delivered"
                 // console.log("Check Point IDxx: " + $sltchkpoint);
 
                 //Show Receive_by DOM
@@ -271,7 +286,8 @@ $('#edit').on('show.bs.modal', function (event) {
                 st.find('#third_party_awb').prop('required',false);
                 // st.find('#third_party_web').hide();
                 // st.find('#third_party_web').prop('required',false);
-            }else if($sltchkpoint == 78){       //if the status is "Shipment connected to"
+            // }else if($sltchkpoint == 79){       //if the status is "Shipment connected to"
+            }else if($sltchkpointName == "Shipment connected to"){       //if the status is "Shipment connected to"
                 // console.log("Check Point IDxx: " + $sltchkpoint);
                 //Hide Receive_by DOM
                 st.find('#rcvby').hide();

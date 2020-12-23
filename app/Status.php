@@ -14,6 +14,7 @@ class Status extends Model
         static::saved(function (Status $status) {
 
             $trac = new Tracking();
+            $trac->status_id = $status->id;
             $trac->awb = $status->awb;
             $trac->checkpoint_id = $status->checkpoint_id;
             $trac->user_id = $status->user_id;
