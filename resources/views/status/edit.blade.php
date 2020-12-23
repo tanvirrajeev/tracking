@@ -32,9 +32,9 @@
                         <div class="form-group"> {{-- Hidden third party AWB DOM  --}}
                             <input type="text" class="form-control" id="third_party_awb" name="third_party_awb" placeholder="Third Party AWB"> {{-- style="display:none" --}}
                         </div>
-                        <div class="form-group"> {{-- Hidden third party Web DOM  --}}
-                            <input type="text" class="form-control" id="third_party_web" name="third_party_web" placeholder="Third Party Web Link"> {{-- style="display:none"  --}}
-                        </div>
+                        {{-- <div class="form-group"> Hidden third party Web DOM  --}}
+                            {{-- <input type="text" class="form-control" id="third_party_web" name="third_party_web" placeholder="Third Party Web Link"> style="display:none"  --}}
+                        {{-- </div> --}}
                         <label for="edit-created_at">STATUS DATE & TIME</label>
                         <i class="fa fa-calendar-alt"></i>
                         <div class="input-group date" id="p">
@@ -81,6 +81,8 @@ $('#edit').on('show.bs.modal', function (event) {
     st.find('#rcvby').hide();
     st.find('#third_party_company').empty(); //third_party_company
     st.find('#third_party_company').hide(); //third_party_company
+    st.find('#third_party_awb').empty(); //third_party_awb
+    st.find('#third_party_awb').hide(); //third_party_awb
 
     getStatus();
     updateStatus();
@@ -98,14 +100,15 @@ $('#edit').on('show.bs.modal', function (event) {
             url: "{{ url('/statuslist') }}",
             data: {id:id},
             success:function(data){
-                console.log(data.statuses);
-                console.log(data.checkpoints);
                 // console.log(data.statuses);
-                console.log(data.areacodes);
-                console.log(data.isThirdPartyExists);
-                console.log(data);
+                // console.log(data.checkpoints);
+                // console.log(data.statuses);
+                // console.log(data.areacodes);
+                // console.log(data.isThirdPartyExists);
+                // console.log(data);
 
                 // Setting up selected option for Checkpoints && Areacode dropdown
+                //First populate the selected option then next populate the rest of the options (in latter code loop bellow)
                 var sltstatus = data.statuses;
                 $.each(sltstatus , function(index, val) {
                 sltstatusid = val.checkpoint_id;
@@ -118,6 +121,7 @@ $('#edit').on('show.bs.modal', function (event) {
                 });
 
                 // Polulate all options for all checkpoints dropdown
+                //Populate rest of the options for the checkpoints
                 var status = data.checkpoints;
                 $.each(status , function(index, val) {
                     if (sltstatusid != val.id){ //Populate the dropdown if the optioin is not equal to selected status ID
@@ -126,7 +130,7 @@ $('#edit').on('show.bs.modal', function (event) {
                     }
                 });
 
-                //Populate awb, date & manifest field
+                //Populate awb, date & manifest, rcvby, 3rdParty_web field
                 $.each(data.statuses , function(index, val) {
                     st.find('#edit-awb').val(val.awb);
                     st.find('#edit-created_at').val(val.date);
@@ -134,10 +138,14 @@ $('#edit').on('show.bs.modal', function (event) {
                     st.find('#rcvby').val(val.received_by);
                     //var chk_comp = val.third_party_company; //st.find('#third_party_company').
                     st.find('#third_party_awb').val(val.third_party_awb);
-                    st.find('#third_party_web').val(val.third_party_web);
+                    // st.find('#third_party_web').val(val.third_party_web);
                 });
 
                 //Populate Company DOM (for both hidden or not)
+                //First check if 3rdParty already exists for the Awb. If not then its a new record so dispaly all the
+                //3rdParty company available from 3rdParty master table.
+                //If there are a value from DB then this awb is already connected to a 3rdParty. Display the 3rdParty ID/Name
+                //from DB
                 if(data.isThirdPartyExists == "NULL"){
                     console.log("NULL");
                     $.each(data.thirdParties , function(index, val) {
@@ -167,6 +175,7 @@ $('#edit').on('show.bs.modal', function (event) {
                 }
 
                 // Setting up all options for areacode dropdown
+                //Populate rest of the Area code
                 $.each(data.areacodes , function(index, val) {
                 if (sltareaid != val.id){
                     var option ="<option value=\""+val.id+"\">"+ val.name +"</option>";
@@ -189,30 +198,8 @@ $('#edit').on('show.bs.modal', function (event) {
             var rcvby = st.find('#rcvby').val();
             var third_party_company = st.find('#third_party_company').val();
             var third_party_awb = st.find('#third_party_awb').val();
-            var third_party_web = st.find('#third_party_web').val();
+            // var third_party_web = st.find('#third_party_web').val();
 
-
-//Populate Company DOM (for both hidden or not)
-// if(data.isThirdPartyExists == "NULL"){
-//                     console.log("NULL");
-//                     $.each(data.thirdParties , function(index, val) {
-//                         var option ="<option value=\""+val.id+"\">"+ val.company +"</option>";
-//                         st.find('#third_party_company').append(option);
-//                     });
-//                 }else{
-//                     console.log("NOT NULL");
-
-//                     $.each(data.isThirdPartyExists , function(index, val) {
-//                         var option ="<option value=\""+val.id+"\">"+ val.third_party_company +"</option>";
-//                         st.find('#third_party_company').append(option);
-//                     });
-//                 }
-
-            // console.log(awb);
-            // console.log(date);
-            // console.log(manifest);
-            // console.log(checkpoint);
-            // console.log(areacode);
 
              //SweetAlert2 Toast for AWB Update confirmation
              const Toast = Swal.mixin({
@@ -222,7 +209,8 @@ $('#edit').on('show.bs.modal', function (event) {
                             timer: 2000
                         });
 
-
+            //If the user only select option '78-Shipment connected to' then only this fild will update.
+            //otherwise not.
             if(checkpoint != 78){ //Not sending third_party_company: third_party_company, if the status == "78-Shipment conected to"
                 $.ajax({
                 type: 'post',
@@ -281,8 +269,8 @@ $('#edit').on('show.bs.modal', function (event) {
                 st.find('#third_party_company').prop('required',false);
                 st.find('#third_party_awb').hide();
                 st.find('#third_party_awb').prop('required',false);
-                st.find('#third_party_web').hide();
-                st.find('#third_party_web').prop('required',false);
+                // st.find('#third_party_web').hide();
+                // st.find('#third_party_web').prop('required',false);
             }else if($sltchkpoint == 78){       //if the status is "Shipment connected to"
                 // console.log("Check Point IDxx: " + $sltchkpoint);
                 //Hide Receive_by DOM
@@ -294,8 +282,8 @@ $('#edit').on('show.bs.modal', function (event) {
                 st.find('#third_party_company').prop('required',true);
                 st.find('#third_party_awb').show();
                 st.find('#third_party_awb').prop('required',true);
-                st.find('#third_party_web').show();
-                st.find('#third_party_web').prop('required',true);
+                // st.find('#third_party_web').show();
+                // st.find('#third_party_web').prop('required',true);
 
             }else{
                 st.find('#rcvby').hide();
@@ -306,8 +294,8 @@ $('#edit').on('show.bs.modal', function (event) {
                 st.find('#third_party_company').prop('required',false);
                 st.find('#third_party_awb').hide();
                 st.find('#third_party_awb').prop('required',false);
-                st.find('#third_party_web').hide();
-                st.find('#third_party_web').prop('required',false);
+                // st.find('#third_party_web').hide();
+                // st.find('#third_party_web').prop('required',false);
 
                 // var option ="<option value=\"\">""</option>";
                 // st.find('#third_party_company').append(option);
@@ -316,12 +304,6 @@ $('#edit').on('show.bs.modal', function (event) {
         });
 
     }
-
-
-
-
-
-
 
 });
 
