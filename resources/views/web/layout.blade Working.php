@@ -1867,47 +1867,20 @@ jQuery('ul.superfish').superfish();
                 console.log(data);
                 // console.log(data[]);
                 var dataObj = JSON.parse(data);
-                // var dataObj = data;
                 // console.log(dataObj[0].checkpoint);
                 // console.log(dataObj[1].checkpoint);
 
                 $('#tracking-ul').empty();
-
-                // $.each(dataObj , function(index, val) {
-                //     console.log(val);
-                //     if (val.checkpoint  == 'Pickup Done' || val.checkpoint  == 'Pickup Done in India'){
-                //         $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
-                //                 "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
-                //                 "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
-                //                 "<span class=\"bubble\"></span>" +
-                //                 "<span class=\"stacked-text\">"+ val.checkpoint +
-                //                 "<span class=\"subdued\" id=\"cpxid\">AWB No: " +val.awb+"</span>" +
-                //                 "<span class=\"subdued\" id=\"created-by\">Updated By: " + val.user +"</span>" +
-                //                 "</span>"+
-                //                 "</li>");
-                //         $('#tracking-ul').append("<li id=\"dlvrd\">" +
-                //                 "<span class=\"bubble\"></span>" +
-                //                 "<span class=\"stacked-text\"> Delivered</span>" +
-                //                 "</span>"+
-                //                 "</li>");
-                //         }
-                //     });
-
                 for(i in dataObj){
-                    console.log(dataObj[i]);
-
-                    $.each(dataObj[i] , function(index, val) {
-                        // st.find('#edit-awb').val(val.awb);
-                        console.log(val.checkpoint);
-
-                        if (val.checkpoint  == 'Pickup Done' || val.checkpoint  == 'Pickup Done in India'){
+                    // console.log(dataObj[i].received_by);
+                    if (dataObj[i].checkpoint  == 'Pickup Done' || dataObj[i].checkpoint  == 'Pickup Done in India'){
                         $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
                                 "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
-                                "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+dataObj[i].time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\">"+ val.checkpoint +
-                                "<span class=\"subdued\" id=\"cpxid\">AWB No: " +val.awb+"</span>" +
-                                "<span class=\"subdued\" id=\"created-by\">Updated By: " + val.user +"</span>" +
+                                "<span class=\"stacked-text\">"+ dataObj[i].checkpoint +
+                                "<span class=\"subdued\" id=\"cpxid\">AWB No: " +dataObj[i].awb+"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Updated By: " + dataObj[i].user +"</span>" +
                                 "</span>"+
                                 "</li>");
                         $('#tracking-ul').append("<li id=\"dlvrd\">" +
@@ -1915,43 +1888,39 @@ jQuery('ul.superfish').superfish();
                                 "<span class=\"stacked-text\"> Delivered</span>" +
                                 "</span>"+
                                 "</li>");
-                        }else if (val.checkpoint  == 'Delivered'){
+                    }else if (dataObj[i].checkpoint  == 'Delivered'){
                         $('#dlvrd').replaceWith("<li class=\"completed warning\" id=\"dlvrd\">" +
-                                "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+dataObj[i].time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\">"+ val.checkpoint + "&nbsp; &nbsp; <span style=\"color: rgb(78, 184, 78);\"><i class=\"fas fa-check-circle\"></i></span>"+
-                                "<span class=\"subdued\" id=\"cpxid\">Received By: " +val.received_by+"</span>" +
+                                "<span class=\"stacked-text\">"+ dataObj[i].checkpoint + "&nbsp; &nbsp; <span style=\"color: rgb(78, 184, 78);\"><i class=\"fas fa-check-circle\"></i></span>"+
+                                "<span class=\"subdued\" id=\"cpxid\">Received By: " +dataObj[i].received_by+"</span>" +
                                 // "<span class=\"subdued\" id=\"created-by\">Received By: " + dataObj[i].received_by +"</span>" +
-                                "<span class=\"subdued\" id=\"created-by\">Updated By: " + val.user +"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Updated By: " + dataObj[i].user +"</span>" +
                                 "</span>"+
                                 "<i style=\"font-size: 3em; color: Orange; margin-left: 52%; margin-right: 48%;\" class=\"fas fa-people-carry\"></i>" +
                                 "</li>");
-                    }else if (val.checkpoint  == 'Shipment connected to'){
-                        // console.log(dataObj[i]);
+                    }else if (dataObj[i].checkpoint  == 'Shipment connected to'){
+                        console.log(dataObj[i]);
                         $('#dlvrd').before("<li class=\"completed warning\" id=\"ordcrt\">" +
-                                "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+dataObj[i].time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\">"+ val.checkpoint + //"&nbsp; &nbsp; <span style=\"color: rgb(78, 184, 78);\"><i class=\"fas fa-check-circle\"></i></span>"+
-                                "<span class=\"subdued\" id=\"cpxid\">3rd Party AWB: " +val.third_party_awb+"</span>" +
+                                "<span class=\"stacked-text\">"+ dataObj[i].checkpoint + //"&nbsp; &nbsp; <span style=\"color: rgb(78, 184, 78);\"><i class=\"fas fa-check-circle\"></i></span>"+
+                                "<span class=\"subdued\" id=\"cpxid\">3rd Party AWB: " +dataObj[i].third_party_awb+"</span>" +
                                 // "<span class=\"subdued\" id=\"created-by\">Received By: " + dataObj[i].received_by +"</span>" +
-                                "<span class=\"subdued\" id=\"created-by\">By: " + val.user +"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">By: " + dataObj[i].user +"</span>" +
                                 "</span>"+
                                 // "<i style=\"font-size: 3em; color: Orange; margin-left: 52%; margin-right: 48%;\" class=\"fas fa-people-carry\"></i>" +
                                 "</li>");
                     }else{
                         $('#dlvrd').before("<li class=\"completed warning\" id=\"ordcrt\">" +
-                                "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
+                                "<span class=\"time\" id=\"created-at-rcvhub\">"+dataObj[i].time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\">"+ val.checkpoint +
+                                "<span class=\"stacked-text\">"+ dataObj[i].checkpoint +
                                 // "<span class=\"subdued\" id=\"cpxid\">AWB No: " +dataObj[i].awb+"</span>" +
-                                "<span class=\"subdued\" id=\"created-by\">Updated By: " + val.user +"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Updated By: " + dataObj[i].user +"</span>" +
                                 "</span>"+
                                 "</li>");
                     }
-
-                    });
-
-
                 }
             }
         });
