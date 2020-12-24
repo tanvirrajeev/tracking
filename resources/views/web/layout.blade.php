@@ -1857,16 +1857,26 @@ jQuery('ul.superfish').superfish();
 		// var st = $('#tracking-body');
         var frm = $('#searchform');
         var awb = frm.find('#awb').val();
-        console.log(awb);
+        // console.log(awb);
+        var third_parties_company = '';
+        var third_parties_web = '';
 
         $.ajax({
             type: 'get',
             url: "{{ url('/web/tracking') }}",
             data: {awb:awb},
             success:function(data){
-                console.log(data);
+                // console.log(data);
+                console.log(data.thirdParty);
                 // console.log(data[]);
                 var dataObj = JSON.parse(data);
+                // console.log(dataObj);
+                // console.log(dataObj.thirdParty);
+                // console.log(dataObj.tracking);
+
+                // var obj = dataObj.thirdParty;
+
+
                 // var dataObj = data;
                 // console.log(dataObj[0].checkpoint);
                 // console.log(dataObj[1].checkpoint);
@@ -1893,14 +1903,24 @@ jQuery('ul.superfish').superfish();
                 //         }
                 //     });
 
-                for(i in dataObj){
-                    console.log(dataObj[i]);
+                // $.each(tk , function(index, val) {
+                //    console.log(val.awb)
+                //    console.log(val.checkpoint)
+                //    console.log(val.user)
+                //     }
+                // });
 
-                    $.each(dataObj[i] , function(index, val) {
-                        // st.find('#edit-awb').val(val.awb);
-                        console.log(val.checkpoint);
+                $.each(dataObj.thirdParty, function(index, val) {
+                //    console.log(val.third_parties_company);
+                   third_parties_company = val.third_parties_company;
+                   third_parties_web = val.third_parties_web;
+                });
 
-                        if (val.checkpoint  == 'Pickup Done' || val.checkpoint  == 'Pickup Done in India'){
+                $.each(dataObj.tracking, function(index, val) {
+                //    console.log(val.awb);
+                //    console.log(val.checkpoint);
+
+                   if (val.checkpoint  == 'Pickup Done' || val.checkpoint  == 'Pickup Done in India'){
                         $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
                                 "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
                                 "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
@@ -1932,9 +1952,10 @@ jQuery('ul.superfish').superfish();
                                 "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
                                 "<span class=\"bubble\"></span>" +
                                 "<span class=\"stacked-text\">"+ val.checkpoint + //"&nbsp; &nbsp; <span style=\"color: rgb(78, 184, 78);\"><i class=\"fas fa-check-circle\"></i></span>"+
-                                "<span class=\"subdued\" id=\"cpxid\">3rd Party AWB: " +val.third_party_awb+"</span>" +
+                                "<span class=\"subdued\" id=\"cpxid\">Company: " + third_parties_company +"</span>" +
                                 // "<span class=\"subdued\" id=\"created-by\">Received By: " + dataObj[i].received_by +"</span>" +
-                                "<span class=\"subdued\" id=\"created-by\">By: " + val.user +"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">AWB: " + val.third_party_awb +"</span>" +
+                                "<span class=\"subdued\" id=\"created-by\">Web: " + third_parties_web +"</span>" +
                                 "</span>"+
                                 // "<i style=\"font-size: 3em; color: Orange; margin-left: 52%; margin-right: 48%;\" class=\"fas fa-people-carry\"></i>" +
                                 "</li>");
@@ -1948,11 +1969,73 @@ jQuery('ul.superfish').superfish();
                                 "</span>"+
                                 "</li>");
                     }
+                });
 
-                    });
+
+                // for(i in dataObj){
+                //     // console.log(dataObj[i]);
+                //     // console.log(dataObj[i].checkpoint);
+
+                //     $.each(dataObj[i] , function(index, val) {
+                //         // st.find('#edit-awb').val(val.awb);
+                //         // console.log(val);
+                //         // console.log(val.third_parties_company);
+                //         // var third_party_com = val.third_parties_company;
 
 
-                }
+                //         if (val.checkpoint  == 'Pickup Done' || val.checkpoint  == 'Pickup Done in India'){
+                //         $('#tracking-ul').append("<li class=\"completed warning\" id=\"ordcrt\">" +
+                //                 "<i style=\"font-size: 3em; color: Orange; margin-left: 50%; margin-right: 50%;\" class=\"fas fa-truck-moving\"></i>" +
+                //                 "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
+                //                 "<span class=\"bubble\"></span>" +
+                //                 "<span class=\"stacked-text\">"+ val.checkpoint +
+                //                 "<span class=\"subdued\" id=\"cpxid\">AWB No: " +val.awb+"</span>" +
+                //                 "<span class=\"subdued\" id=\"created-by\">Updated By: " + val.user +"</span>" +
+                //                 "</span>"+
+                //                 "</li>");
+                //         $('#tracking-ul').append("<li id=\"dlvrd\">" +
+                //                 "<span class=\"bubble\"></span>" +
+                //                 "<span class=\"stacked-text\"> Delivered</span>" +
+                //                 "</span>"+
+                //                 "</li>");
+                //         }else if (val.checkpoint  == 'Delivered'){
+                //         $('#dlvrd').replaceWith("<li class=\"completed warning\" id=\"dlvrd\">" +
+                //                 "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
+                //                 "<span class=\"bubble\"></span>" +
+                //                 "<span class=\"stacked-text\">"+ val.checkpoint + "&nbsp; &nbsp; <span style=\"color: rgb(78, 184, 78);\"><i class=\"fas fa-check-circle\"></i></span>"+
+                //                 "<span class=\"subdued\" id=\"cpxid\">Received By: " +val.received_by+"</span>" +
+                //                 // "<span class=\"subdued\" id=\"created-by\">Received By: " + dataObj[i].received_by +"</span>" +
+                //                 "<span class=\"subdued\" id=\"created-by\">Updated By: " + val.user +"</span>" +
+                //                 "</span>"+
+                //                 "<i style=\"font-size: 3em; color: Orange; margin-left: 52%; margin-right: 48%;\" class=\"fas fa-people-carry\"></i>" +
+                //                 "</li>");
+                //     }else if (val.checkpoint  == 'Shipment connected to'){
+                //         // console.log(dataObj[i]);
+                //         $('#dlvrd').before("<li class=\"completed warning\" id=\"ordcrt\">" +
+                //                 "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
+                //                 "<span class=\"bubble\"></span>" +
+                //                 "<span class=\"stacked-text\">"+ val.checkpoint + //"&nbsp; &nbsp; <span style=\"color: rgb(78, 184, 78);\"><i class=\"fas fa-check-circle\"></i></span>"+
+                //                 "<span class=\"subdued\" id=\"cpxid\">3rd Party AWB: " +val.third_party_awb+"</span>" +
+                //                 // "<span class=\"subdued\" id=\"created-by\">Received By: " + dataObj[i].received_by +"</span>" +
+                //                 "<span class=\"subdued\" id=\"created-by\">Company: " + val.third_parties_company +"</span>" +
+                //                 "</span>"+
+                //                 // "<i style=\"font-size: 3em; color: Orange; margin-left: 52%; margin-right: 48%;\" class=\"fas fa-people-carry\"></i>" +
+                //                 "</li>");
+                //     }else{
+                //         $('#dlvrd').before("<li class=\"completed warning\" id=\"ordcrt\">" +
+                //                 "<span class=\"time\" id=\"created-at-rcvhub\">"+val.time+"</span>" +
+                //                 "<span class=\"bubble\"></span>" +
+                //                 "<span class=\"stacked-text\">"+ val.checkpoint +
+                //                 // "<span class=\"subdued\" id=\"cpxid\">AWB No: " +dataObj[i].awb+"</span>" +
+                //                 "<span class=\"subdued\" id=\"created-by\">Updated By: " + val.user +"</span>" +
+                //                 "</span>"+
+                //                 "</li>");
+                //     }
+
+                //     });
+
+
+                // }
             }
         });
     });

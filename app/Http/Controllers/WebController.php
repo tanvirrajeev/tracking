@@ -27,12 +27,21 @@ class WebController extends Controller
             $tk = DB::table('trackings')
             ->join('users', 'users.id', '=', 'trackings.user_id')
             ->join('checkpoints', 'checkpoints.id', '=', 'trackings.checkpoint_id')
+            // ->join('statuses', 'statuses.id', '=', 'third_parties.id')
             ->join('statuses', 'statuses.id', '=', 'trackings.status_id')
             ->select('trackings.awb as awb','checkpoints.name as checkpoint','users.name as user','trackings.checkpoint_id as chkid','trackings.status_date as time', 'statuses.received_by as received_by', 'statuses.third_party_awb as third_party_awb')
             ->where('trackings.awb', $awb)
             ->get();
             // return response($tk);
-            return response()->json(['tk'=>$tk]);
+
+            $thirdParty = DB::table('statuses')
+                        ->join('third_parties', 'third_parties.id', '=', 'statuses.third_party_id')
+                        ->select('third_parties.company as third_parties_company', 'third_parties.web as third_parties_web')
+                        ->where('statuses.awb', '=', $awb)
+                        ->get();
+
+            // return response()->json(['tk'=>$tk, 'thirdParty'=>$thirdParty]);
+            return response()->json(['tracking'=>$tk, 'thirdParty'=>$thirdParty]);
 
         }else{
             return response("Null");

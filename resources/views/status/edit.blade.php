@@ -29,6 +29,9 @@
                         <div class="form-group"> {{-- Hidden third party company DOM  --}}
                             <select class="form-control form-control" name="third_party_company" id="third_party_company" ></select> {{-- style="display:none" --}}
                         </div>
+                        <div class="form-group"> {{-- Hidden third party company Name  --}}
+                            <select class="form-control form-control" name="third_party_company_name" id="third_party_company_name" style="display:none"></select> {{-- style="display:none" --}}
+                        </div>
                         <div class="form-group"> {{-- Hidden third party AWB DOM  --}}
                             <input type="text" class="form-control" id="third_party_awb" name="third_party_awb" placeholder="Third Party AWB"> {{-- style="display:none" --}}
                         </div>
@@ -108,7 +111,7 @@ $('#edit').on('show.bs.modal', function (event) {
                 // console.log(data.statuses);
                 // console.log(data.areacodes);
                 // console.log(data.isThirdPartyExists);
-                // console.log(data);
+                console.log(data);
 
                 // Setting up selected option for Checkpoints && Areacode dropdown
                 //First populate the selected option then next populate the rest of the options (in latter code loop bellow)
@@ -159,6 +162,11 @@ $('#edit').on('show.bs.modal', function (event) {
                         var option ="<option value=\""+val.id+"\">"+ val.company +"</option>";
                         st.find('#third_party_company').append(option);
 
+                        // var ab = st.find('#third_party_company');
+                        // var cd = ab.find('option:selected').text()
+                        // st.find('#third_party_company_name').append(cd);
+                        // console.log(cd);
+
                         // if(sltstatusid == '78'){
                         // var option ="<option value=\""+val.id+"\">"+ val.company +"</option>";
                         // st.find('#third_party_company').append(option);
@@ -204,8 +212,11 @@ $('#edit').on('show.bs.modal', function (event) {
             var areacode = st.find('#edit-areaCodes').val();
             var rcvby = st.find('#rcvby').val();
             var third_party_company = st.find('#third_party_company').val();
+            // var third_party_company_name = st.find('#third_party_company option:selected').text()
+            // var third_party_company_name = st.find('#third_party_company_name').val();
             var third_party_awb = st.find('#third_party_awb').val();
             // var third_party_web = st.find('#third_party_web').val();
+            // console.log(third_party_company_name);
 
 
              //SweetAlert2 Toast for AWB Update confirmation

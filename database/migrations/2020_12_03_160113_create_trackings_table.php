@@ -17,6 +17,7 @@ class CreateTrackingsTable extends Migration
         if (!Schema::hasTable('trackings')) {
             Schema::create('trackings', function (Blueprint $table) {
                 $table->id();
+                $table->unsignedBigInteger('status_id');
                 $table->string('awb');
                 $table->unsignedBigInteger('checkpoint_id');
                 $table->unsignedBigInteger('user_id');
