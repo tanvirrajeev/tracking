@@ -1664,8 +1664,9 @@ jQuery('ul.superfish').superfish();
 </script>
 
 
- <span style="float:right;">
- <form name="log_frm" action="search.php" id ="searchform" method="post" style="padding-bottom:5px;padding-right:6px; margin:0;" >
+ <span id ="searchform" style="float:right;">
+ {{-- <form name="log_frm" action="search.php" id ="searchform" method="post" style="padding-bottom:5px;padding-right:6px; margin:0;" > --}}
+    {{-- <form name="log_frm" action="" id ="searchform"  style="padding-bottom:5px;padding-right:6px; margin:0;" > --}}
         <span style="color:#FFFFFF" >track your pack.</span>
         <input type="text" name="awb" id="awb">
         {{-- <input type="button" name="submit" value="search" id="status1" onclick='openModal()'> --}}
@@ -1674,7 +1675,7 @@ jQuery('ul.superfish').superfish();
             <input type="image"  src="images/search_bt.jpg" align="absbottom" style="margin-right:10px; border:0 ;">-->
 
 
-  </form>
+  {{-- </form> --}}
       </span>
 </div>
 
@@ -1860,6 +1861,7 @@ jQuery('ul.superfish').superfish();
         // console.log(awb);
         var third_parties_company = '';
         var third_parties_web = '';
+        var areacode = '';
 
         $.ajax({
             type: 'get',
@@ -1914,6 +1916,7 @@ jQuery('ul.superfish').superfish();
                 //    console.log(val.third_parties_company);
                    third_parties_company = val.third_parties_company;
                    third_parties_web = val.third_parties_web;
+                   areacode = val.areacode;
                 });
 
                 $.each(dataObj.tracking, function(index, val) {
@@ -1927,6 +1930,7 @@ jQuery('ul.superfish').superfish();
                                 "<span class=\"bubble\"></span>" +
                                 "<span class=\"stacked-text\">"+ val.checkpoint +
                                 "<span class=\"subdued\" id=\"cpxid\">AWB No: " +val.awb+"</span>" +
+                                "<span class=\"subdued\" id=\"cpxid\">Area Code: " +areacode+"</span>" +
                                 "<span class=\"subdued\" id=\"created-by\">Updated By: " + val.user +"</span>" +
                                 "</span>"+
                                 "</li>");

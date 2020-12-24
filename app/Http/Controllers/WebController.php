@@ -36,7 +36,8 @@ class WebController extends Controller
 
             $thirdParty = DB::table('statuses')
                         ->join('third_parties', 'third_parties.id', '=', 'statuses.third_party_id')
-                        ->select('third_parties.company as third_parties_company', 'third_parties.web as third_parties_web')
+                        ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+                        ->select('area_codes.name as areacode','third_parties.company as third_parties_company', 'third_parties.web as third_parties_web')
                         ->where('statuses.awb', '=', $awb)
                         ->get();
 

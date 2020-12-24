@@ -111,7 +111,7 @@ $('#edit').on('show.bs.modal', function (event) {
                 // console.log(data.statuses);
                 // console.log(data.areacodes);
                 // console.log(data.isThirdPartyExists);
-                console.log(data);
+                // console.log(data);
 
                 // Setting up selected option for Checkpoints && Areacode dropdown
                 //First populate the selected option then next populate the rest of the options (in latter code loop bellow)
@@ -157,7 +157,7 @@ $('#edit').on('show.bs.modal', function (event) {
                 //If there are a value from DB then this awb is already connected to a 3rdParty. Display the 3rdParty ID/Name
                 //from DB
                 if(data.isThirdPartyExists == "NULL"){
-                    console.log("NULL");
+                    // console.log("NULL");
                     $.each(data.thirdParties , function(index, val) {
                         var option ="<option value=\""+val.id+"\">"+ val.company +"</option>";
                         st.find('#third_party_company').append(option);
@@ -177,7 +177,7 @@ $('#edit').on('show.bs.modal', function (event) {
 
                     });
                 }else{
-                    console.log("NOT NULL");
+                    // console.log("NOT NULL");
 
                     // console.log(data.isThirdPartyExists);
                     // console.log(data.thirdParties);
