@@ -17,25 +17,27 @@
                 @endif
 
                 <div class="card-header bg-orange">
-                    <h3 class="card-title"> AREA CODE ENTRY</h3>
+                    <h3 class="card-title">AREA CODE EDIT</h3>
                     <a href="{{ url()->previous() }}" class="btn btn-outline-warning btn-sm float-right">BACK</a>
                 </div>
 
                 <div class="card-body">
 
-                    <form action="{{ route('area_code.store') }}" method="POST">
+                    <form action="/area_code/{{ $areaCode->id }}" method="POST" id="orderform">
+                        {{-- $order->id --}}
                         @csrf
+                        @method('PUT')
                         <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
                                     <label for="name">AREA CODE</label><label class="text-danger">*</label>
-                                    <input type="text" class="form-control" name="name" id="name" autocomplete="off" required>
+                                    <input type="text" class="form-control" name="name" id="name" value="{{$areaCode->name}}" autocomplete="off" required>
                                 </div>
                             </div>
                                 <div class="col-5">
                                     <div class="form-group">
                                         <label for="description">DESCRIPTION</label><label class="text-danger">*</label>
-                                        <input type="text" class="form-control" name="description" id="description" autocomplete="off" required>
+                                        <input type="text" class="form-control" name="description" id="description" value="{{$areaCode->description}}" autocomplete="off" required>
                                     </div>
                                 </div>
                             </div>

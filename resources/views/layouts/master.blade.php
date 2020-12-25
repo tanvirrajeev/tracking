@@ -333,7 +333,9 @@
 {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
 <script>
     $(document).ready(function () {
-      $('table').DataTable();
+      $('table').DataTable({
+        "order": [[ 0, "desc" ]]
+      });
     });
 </script>
 <script>$('.datetimepicker').datetimepicker();</script>
