@@ -42,14 +42,28 @@ class SearchController extends Controller
             // dd($request);
             $areaCodes = DB::table('area_codes')->get();
             $checkPoints = DB::table('checkpoints')->get();
-            $statuses = DB::table('statuses')
-            ->join('users', 'users.id', '=', 'statuses.user_id')
-            ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
-            ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
-            ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest','area_codes.id as areaId','area_codes.name as areacode')
-            ->where('statuses.manifest', '=', $request->manifest)
-            ->where('area_codes.name', '=', $request->areaCodes)
-            ->get();
+
+            if ($request->areaCodes != "ALL"){
+                $statuses = DB::table('statuses')
+                ->join('users', 'users.id', '=', 'statuses.user_id')
+                ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
+                ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+                ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest','area_codes.id as areaId','area_codes.name as areacode')
+                ->where('statuses.manifest', '=', $request->manifest)
+                ->where('area_codes.name', '=', $request->areaCodes)
+                ->get();
+            }else{
+                $statuses = DB::table('statuses')
+                ->join('users', 'users.id', '=', 'statuses.user_id')
+                ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
+                ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+                ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest','area_codes.id as areaId','area_codes.name as areacode')
+                ->where('statuses.manifest', '=', $request->manifest)
+                // ->where('area_codes.name', '=', $request->areaCodes)
+                ->get();
+            }
+
+
 
             return view('search.index', compact('areaCodes','checkPoints','statuses'));
         }else{ //Request from SEARCH & UPDATE BY AWB Modal
@@ -100,10 +114,17 @@ class SearchController extends Controller
         $data2 = 2; //Job Failed
 
         if($request->exists('manifest')){
-            $statuses = DB::table('statuses')
-                        ->where('statuses.manifest', '=', $request->manifest)
-                        ->where('statuses.areacode', '=', $request->areaCodesId)
-                        ->get();
+
+            if ($request->areaCodesId != "999"){
+                $statuses = DB::table('statuses')
+                ->where('statuses.manifest', '=', $request->manifest)
+                ->where('statuses.areacode', '=', $request->areaCodesId)
+                ->get();
+            }else{
+                $statuses = DB::table('statuses')
+                ->where('statuses.manifest', '=', $request->manifest)
+                ->get();
+            }
 
             if($statuses->isEmpty()){
                 return response($data2);
@@ -115,7 +136,7 @@ class SearchController extends Controller
                     $st->checkpoint_id = $request->checkpointId;
                     $st->user_id = Auth::id();
                     $st->manifest = $item->manifest;
-                    $st->areacode = $request->areaCodesId;
+                    // $st->areacode = $request->areaCodesId;
                     $st->status_date = $request->date;
                     $st->save();
                 }

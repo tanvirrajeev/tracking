@@ -57,6 +57,10 @@ Route::post('/update-area', 'SearchController@updatearea')->name('search.updatea
 Route::post('/update-awb', 'SearchController@updateawb')->name('search.updateawb')->middleware('auth');
 
 
+//Area Codes
+Route::resource('/area_code', 'AreaCodeController')->middleware('auth');
+
+
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

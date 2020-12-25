@@ -82,7 +82,8 @@
                                 <div class="form-group">
                                     <label for="areaCodes">AREA CODE</label><label class="text-danger">*</label>
                                     <select class="form-control form-control" name="areaCodes" id="search_areaCodes">
-                                    @foreach ($areaCodes as $item)
+                                        <option id="999">ALL</option>
+                                        @foreach ($areaCodes as $item)
                                         <option id="{{ $item->id}}">{{ $item->name}}</option>
                                     @endforeach
                                 </select>
@@ -308,15 +309,6 @@
             var areaCodesId = m.find('#search_areaCodes option:selected').attr('id');
             var checkpointId = m.find('#manifest-checkpoint option:selected').attr('id');
             var date = m.find('#manifest_date').val();
-
-            // console.log(manifest);
-            // console.log(areaCodes);
-            // console.log(checkpoint);
-            // console.log(areaCodesId);
-            // console.log(checkpointId);
-
-
-
 
             $.ajax({
                 type: 'post',

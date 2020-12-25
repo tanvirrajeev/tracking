@@ -220,13 +220,17 @@
         </ul> --}}
     </li>
     <li class="nav-item">
-        <a href="#" class="nav-link">
+        <a href="/area_code" class="nav-link {{ Request::is('area_code') ? 'active' : ''}}">
+            <i class="nav-icon fas fa-th"></i>
+            <p>AREA CODE</p>
+        </a>
+        {{-- <a href="#" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
                 Simple Link
                 <span class="right badge badge-danger">New</span>
             </p>
-        </a>
+        </a> --}}
     </li>
 </ul>
 <ul class="nav nav-sidebar flex-column">
