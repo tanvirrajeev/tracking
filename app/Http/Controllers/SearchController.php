@@ -19,7 +19,8 @@ class SearchController extends Controller
         ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
         ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
         ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest','area_codes.name as areacode')
-        ->get();
+        ->orderBy('statuses.awb', 'desc')
+        ->paginate(10);
 
         return view('search.index', compact('areaCodes','checkPoints','statuses'));
     }
@@ -51,7 +52,9 @@ class SearchController extends Controller
                 ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest','area_codes.id as areaId','area_codes.name as areacode')
                 ->where('statuses.manifest', '=', $request->manifest)
                 ->where('area_codes.name', '=', $request->areaCodes)
-                ->get();
+                // ->get();
+                ->orderBy('statuses.awb', 'desc')
+                ->paginate(10);
             }else{
                 $statuses = DB::table('statuses')
                 ->join('users', 'users.id', '=', 'statuses.user_id')
@@ -60,7 +63,9 @@ class SearchController extends Controller
                 ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest','area_codes.id as areaId','area_codes.name as areacode')
                 ->where('statuses.manifest', '=', $request->manifest)
                 // ->where('area_codes.name', '=', $request->areaCodes)
-                ->get();
+                // ->get();
+                ->orderBy('statuses.awb', 'desc')
+                ->paginate(10);
             }
 
 
@@ -75,7 +80,9 @@ class SearchController extends Controller
             ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
             ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest', 'area_codes.name as areacode')
             ->where('statuses.awb', '=', $request->awb)
-            ->get();
+            // ->get();
+            ->orderBy('statuses.awb', 'desc')
+            ->paginate(10);
 
             return view('search.index', compact('areaCodes','checkPoints','statuses'));
         }

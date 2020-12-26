@@ -90,7 +90,7 @@
                 <div class="card-header bg-maroon">AWB</div>
                 <div class="card-body">
 
-                    <table id="awbtables" class="table table-striped table-bordered">
+                    <table id="table" class="table table-striped table-bordered">
                         <thead>
                         <tr>
                           <th>AWB</th>
@@ -98,10 +98,24 @@
                           <th>UPDATED BY</th>
                           <th>MANIFEST</th>
                           {{-- <th>AREA CODE</th> --}}
-                          {{-- <th>ACTION</th> --}}
+                          <th>ACTION</th>
                         </tr>
                         </thead>
                         <tbody>
+                            @foreach ($statuses as $item)
+                                <tr>
+                                    <td>{{ $item->awb }}</td>
+                                    <td>{{ $item->checkpoints }}</td>
+                                    <td>{{ $item->updated_by }}</td>
+                                    <td>{{ $item->manifest }}</td>
+                                    {{-- <td>{{ $item->areacode }}</td> --}}
+                                    <td>
+                                        {{-- <a class="btn btn-small btn-success" href="{{ URL::to('status/' . $item->id) }}">Show</a> --}}
+                                        <a href="" class="btn btn-xs btn-success" data-id={{$item->id}} data-bs-toggle="modal" data-bs-target="#show">SHOW<i class="fas fa-edit"></i></a>
+                                        <a href="" class="btn btn-xs bg-purple" data-id={{$item->id}} data-bs-toggle="modal" data-bs-target="#edit">EDIT<i class="fas fa-edit"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -111,25 +125,7 @@
 </div>
 
 
-{{-- DataTalbles --}}
-<script>
-$(document).ready( function () {
-    $('#awbtables').DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        order: [0, 'desc'],
-        ajax: '{!! route('status.awblist') !!}',
-        // columnDefs: [{ "orderable": false, "targets": '_all' }],
-        columns: [
-            { data: 'awb', name: 'awb' },
-            { data: 'checkpoints', name: 'checkpoints' },
-            { data: 'updated_by', name: 'updated_by' },
-            { data: 'manifest', name: 'manifest' }
-        ]
-    });
-});
-</script>
+
 
 
 @endsection

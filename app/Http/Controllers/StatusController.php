@@ -7,6 +7,7 @@ use App\Checkpoint;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Yajra\Datatables\Datatables;
 
 class StatusController extends Controller
 {
@@ -26,6 +27,22 @@ class StatusController extends Controller
         // dd($statuses);
 
         return view('status.index', compact('checkpoint','areaCodes','statuses'));
+    }
+
+    public function awblist(){
+        $statuses = DB::table('statuses')
+                    ->join('users', 'users.id', '=', 'statuses.user_id')
+                    ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
+                    ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+                    ->select('statuses.id','statuses.awb as awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest as manifest', 'area_codes.name as areacode')
+                    ->get();
+        // return response($statuses);
+        // return json_encode($statuses);
+        // return response()->json(['statuses'=>$statuses]);
+
+
+        return Datatables::of($statuses)     // View Order Page Datatable
+                    ->make(true); //setting up id to every row
     }
 
     public function create()

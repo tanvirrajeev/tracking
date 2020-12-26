@@ -165,6 +165,8 @@
                                 </tr>
                             @endforeach
                         </tbody>
+                        {{ $statuses->links() }}
+                        {{-- {{ $statuses->onEachSide(5)->links() }} --}}
                     </table>
                 </div>
             </div>

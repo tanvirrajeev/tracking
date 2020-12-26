@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +48,7 @@ Route::get('/web/tracking', 'WebController@tracking');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/status', 'StatusController')->middleware('auth');
+Route::get('/awblist', 'StatusController@awblist')->name('status.awblist')->middleware('auth');
 Route::get('/statuslist', 'StatusController@statuslist')->name('status.statuslist')->middleware('auth');
 Route::post('/chgstatusmodal', 'StatusController@chgstatusmodal')->name('status.chgstatusmodal')->middleware('auth');
 
