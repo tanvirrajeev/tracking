@@ -30,7 +30,7 @@ class StatusController extends Controller
     }
 
     public function awblist(){
-        $statuses = DB::table('statuses')
+        $data = DB::table('statuses')
                     ->join('users', 'users.id', '=', 'statuses.user_id')
                     ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
                     ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
@@ -41,8 +41,14 @@ class StatusController extends Controller
         // return response()->json(['statuses'=>$statuses]);
 
 
-        return Datatables::of($statuses)     // View Order Page Datatable
-                    ->make(true); //setting up id to every row
+        return Datatables::of($data)     // View Order Page Datatable
+                    ->addColumn('action', function( $data) {
+                        return '<a href="" class="btn btn-xs btn-success" data-id='.$data->id.' data-bs-toggle="modal" data-bs-target="#show">EDIT<i class="fas fa-edit"></i></a>
+                        <a href="" class="btn btn-xs bg-purple" data-id='.$data->id.' data-bs-toggle="modal" data-bs-target="#edit">EDIT<i class="fas fa-edit"></i></a>';
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+
     }
 
     public function create()

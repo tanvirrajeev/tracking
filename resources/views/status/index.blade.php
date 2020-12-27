@@ -84,7 +84,6 @@
         </div>
 
 
-
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-maroon">AWB</div>
@@ -98,7 +97,7 @@
                           <th>UPDATED BY</th>
                           <th>MANIFEST</th>
                           {{-- <th>AREA CODE</th> --}}
-                          {{-- <th>ACTION</th> --}}
+                          <th>ACTION</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -125,7 +124,8 @@ $(document).ready( function () {
             { data: 'awb', name: 'awb' },
             { data: 'checkpoints', name: 'checkpoints' },
             { data: 'updated_by', name: 'updated_by' },
-            { data: 'manifest', name: 'manifest' }
+            { data: 'manifest', name: 'manifest' },
+            { data: 'action', name: 'action' }
         ]
     });
 });
