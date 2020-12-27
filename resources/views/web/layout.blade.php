@@ -1912,6 +1912,12 @@ jQuery('ul.superfish').superfish();
                 //     }
                 // });
 
+                //Getting Area Code for Tracking
+                $.each(dataObj.areaCodes, function(index, val) {
+                    // console.log(val.areacode);
+                    areacode = val.areacode;
+                });
+
                 $.each(dataObj.thirdParty, function(index, val) {
                 //    console.log(val.third_parties_company);
                    third_parties_company = val.third_parties_company;

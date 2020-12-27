@@ -34,6 +34,13 @@ class WebController extends Controller
             ->get();
             // return response($tk);
 
+            $areaCodes = DB::table('statuses')
+                        ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+                        ->select('area_codes.name as areacode')
+                        ->where('statuses.awb', '=', $awb)
+                        ->get();
+
+            //Third Party for Tracking
             $thirdParty = DB::table('statuses')
                         ->join('third_parties', 'third_parties.id', '=', 'statuses.third_party_id')
                         ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
@@ -42,7 +49,7 @@ class WebController extends Controller
                         ->get();
 
             // return response()->json(['tk'=>$tk, 'thirdParty'=>$thirdParty]);
-            return response()->json(['tracking'=>$tk, 'thirdParty'=>$thirdParty]);
+            return response()->json(['tracking'=>$tk, 'thirdParty'=>$thirdParty, 'areaCodes'=>$areaCodes]);
 
         }else{
             return response("Null");

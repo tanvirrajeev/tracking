@@ -62,6 +62,10 @@ Route::post('/update-awb', 'SearchController@updateawb')->name('search.updateawb
 //Area Codes
 Route::resource('/area_code', 'AreaCodeController')->middleware('auth');
 
+//Employee
+Route::resource('/employee', 'EmployeeController')->middleware('auth');
+Route::get('userlist', 'EmployeeController@userlist')->name('employee.userlist');
+
 
 // Auth::routes();
 
