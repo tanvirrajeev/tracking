@@ -18,16 +18,16 @@
                     </div>
                 @endif
 
-                <div class="card-header bg-orange"><h3>{{ __('EDIT USER') }}</h3>
+                <div class="card-header bg-orange"><h3>{{ __('SHOW USER') }}</h3>
                     <a href="/employee/" class="btn btn-outline-warning btn-sm float-right"><i class="fas fa-backward"></i>&nbsp;</i>BACK</a>
                 </div>
 
                 <div class="card-body">
 
-                    <form action="/employee/{{ $employee->id }}" method="POST">
+                    <form>
                         {{-- <form action="{{ route('order.store') }}" method="POST"> --}}
-                        @csrf
-                        @method('PUT')
+                        {{-- @csrf
+                        @method('PUT') --}}
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
@@ -66,7 +66,8 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-dark" id="submit_button" >UPDATE</button>
+                        {{-- <button type="submit" class="btn btn-dark" id="submit_button" >UPDATE</button> --}}
+                        <a href="/employee" class="btn btn-dark">BACK</a>
                       </form>
                 </div>
             </div>

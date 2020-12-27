@@ -63,33 +63,39 @@ class EmployeeController extends Controller
     }
 
     public function show(Employee $employee){
-        //
+
+        return view('settings.employee.show', compact('employee'));
     }
 
     public function edit(Employee $employee){
         // dd($employee);
+        return view('settings.employee.edit', compact('employee'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Employee $employee)
-    {
-        //
+    public function update(Request $request, Employee $employee){
+        // dd($employee);
+        $this->validate($request,[
+            'name'=>'required',
+            'email'=>'required|email|max:255',
+            'status'=>'required'
+         ]);
+
+        $emp = New User;
+        $emp = User::find($employee->id);
+        $emp->name = $request->name;
+        $emp->email = $request->email;
+        if($request->password != ''){
+            $emp->password = Hash::make($request->password);
+        }
+        $emp->status = $request->status;
+        $emp->save();
+
+        return redirect(route('employee.index'))->with('toast_success','User Updated');
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Employee  $employee
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Employee $employee)
-    {
+
+    public function destroy(Employee $employee){
         //
     }
 }
