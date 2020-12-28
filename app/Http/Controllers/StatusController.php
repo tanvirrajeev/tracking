@@ -43,7 +43,7 @@ class StatusController extends Controller
 
         return Datatables::of($data)     // View Order Page Datatable
                     ->addColumn('action', function( $data) {
-                        return '<a href="" class="btn btn-xs btn-success" data-id='.$data->id.' data-bs-toggle="modal" data-bs-target="#show">EDIT<i class="fas fa-edit"></i></a>
+                        return '<a href="" class="btn btn-xs btn-success" data-id='.$data->id.' data-bs-toggle="modal" data-bs-target="#show">SHOW<i class="fas fa-edit"></i></a>
                         <a href="" class="btn btn-xs bg-purple" data-id='.$data->id.' data-bs-toggle="modal" data-bs-target="#edit">EDIT<i class="fas fa-edit"></i></a>';
                     })
                     ->rawColumns(['action'])

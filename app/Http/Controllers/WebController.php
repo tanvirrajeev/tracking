@@ -29,8 +29,9 @@ class WebController extends Controller
             ->join('checkpoints', 'checkpoints.id', '=', 'trackings.checkpoint_id')
             // ->join('statuses', 'statuses.id', '=', 'third_parties.id')
             ->join('statuses', 'statuses.id', '=', 'trackings.status_id')
-            ->select('trackings.awb as awb','checkpoints.name as checkpoint','users.name as user','trackings.checkpoint_id as chkid','trackings.status_date as time', 'statuses.received_by as received_by', 'statuses.third_party_awb as third_party_awb')
+            ->select('trackings.id as id','trackings.awb as awb','checkpoints.name as checkpoint','users.name as user','trackings.checkpoint_id as chkid','trackings.status_date as time', 'statuses.received_by as received_by', 'statuses.third_party_awb as third_party_awb')
             ->where('trackings.awb', $awb)
+            ->orderBy('trackings.id', 'asc')
             ->get();
             // return response($tk);
 

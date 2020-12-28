@@ -29,7 +29,7 @@
                             <div class="col-5">
                                 <div class="form-group">
                                     <label for="awb">AWB</label><label class="text-danger">*</label>
-                                    <input type="text" class="form-control" name="awb" id="awb" autocomplete="off" required>
+                                    <input type="text" class="form-control" name="awb" id="awb" value="{{ old('awb') }}" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="col-7">
@@ -49,13 +49,13 @@
                                 <label for="ecomorddtt">STATUS DATE & TIME</label>
                               <i class="fa fa-calendar-alt"></i>
                               <div class="input-group date" id="p">
-                                <input type="text" class="form-control datetimepicker" name="created_at" id="created_at" autocomplete="off" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                <input type="text" class="form-control datetimepicker" name="created_at" id="created_at" value="{{ old('created_at') }}" autocomplete="off" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                               </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="manifest">MANIFEST NO</label><label class="text-danger">*</label>
-                                    <input type="text" class="form-control" name="manifest" id="manifest" autocomplete="off" required>
+                                    <input type="text" class="form-control" name="manifest" id="manifest" value="{{ old('manifest') }}" autocomplete="off" required>
                                 </div>
                             </div>
                             <div class="col-4">

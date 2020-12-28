@@ -1869,7 +1869,7 @@ jQuery('ul.superfish').superfish();
             data: {awb:awb},
             success:function(data){
                 // console.log(data);
-                console.log(data.thirdParty);
+                // console.log(data.thirdParty);
                 // console.log(data[]);
                 var dataObj = JSON.parse(data);
                 // console.log(dataObj);
