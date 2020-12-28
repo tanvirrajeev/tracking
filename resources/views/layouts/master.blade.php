@@ -63,10 +63,9 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-orange elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="{{ asset('/img/plbd_logo.jpg') }}" alt="Powerline" class="brand-image "
-        style="opacity: .8">
-   <span class="brand-text font-weight-light">Power Line Ltd.</span>
+    <a href="#" class="brand-link">
+        <img src="{{ asset('/img/plbd_logo.jpg') }}" alt="Powerline" class="brand-image "style="opacity: .8">
+        <span class="brand-text font-weight-light" style="font-size: 13px; height: 1em;">Power Line Air Express Ltd.</span>
     </a>
 
     <!-- Sidebar -->
