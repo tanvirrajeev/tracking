@@ -13,7 +13,10 @@ class StatusController extends Controller
 {
 
     public function index(){
-        $checkpoint = DB::table('checkpoints')->get();
+        $checkpoint = DB::table('checkpoints')
+                    ->where('checkpoints.name', '=', 'Pickup Done')
+                    ->orWhere('checkpoints.name', '=', 'Pickup Done in India')
+                    ->get();
         $areaCodes = DB::table('area_codes')->get();
         $statuses = DB::table('statuses')
                     ->join('users', 'users.id', '=', 'statuses.user_id')
