@@ -54,7 +54,7 @@ class SearchController extends Controller
                 ->where('area_codes.name', '=', $request->areaCodes)
                 // ->get();
                 ->orderBy('statuses.awb', 'desc')
-                ->paginate(10);
+                ->paginate(500);
             }else{
                 $statuses = DB::table('statuses')
                 ->join('users', 'users.id', '=', 'statuses.user_id')
@@ -65,7 +65,7 @@ class SearchController extends Controller
                 // ->where('area_codes.name', '=', $request->areaCodes)
                 // ->get();
                 ->orderBy('statuses.awb', 'desc')
-                ->paginate(10);
+                ->paginate(500);
             }
 
 

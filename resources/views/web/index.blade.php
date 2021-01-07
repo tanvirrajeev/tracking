@@ -265,18 +265,20 @@ $(function() {
 												                         Power Line Air Express Ltd.<br />
 												                         Hotline:+880 1713 482888, +880 1613 482888, +880 9678777544<br />
 
-												           e-mail :<a href="mailto:hq@powerlinebd.net" target="_blank">                                                                       hq@powerlinebd.net</a> <br/><br/>
-                                                                                <strong>Delhi</strong><br />
-												                             Main Office<br />
-                                                                      Customer Care   : +91 9599810873, +91 9599810874, +91 9599810875, 9599810875<br />
+												           e-mail :<a href="mailto:hq@powerlinebd.net" target="_blank">hq@powerlinebd.net</a> <br/><br/>
+                                                                                <strong>India office</strong><br />
+												                             GSA<br />
+                                                                             Urgent Air Worldwide<br />
+                                                                      Customer Care   : +91 9167179362, +91 9920035212<br />
 
-												      email :<a href="mailto:info@powerline-ind.com" target="_blank">                                                               info@powerline-ind.com</a><br/><br/>
+												      email :<a href="mailto:urgentairworldwide@gmail.com" target="_blank">urgentairworldwide@gmail.com</a>,
+												      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp&nbsp&nbsp&nbsp;<a href="mailto:kamleshrajput0200@gmail.com" target="_blank">kamleshrajput0200@gmail.com</a><br/><br/>
 
                                                                    <strong>Colombo</strong><br />
 												                             Forwardair Courier (PVT) Ltd.<br />
                                                                       Tel: +94 11 2426600 ,4367000  <br />
 												                      Contact Person : Shehan Anthony Mohamed<br />
-												      email :<a href="mailto:shehan@forwardairxpress.com" target="_blank">                                                               shehan@forwardairxpress.com</a>
+												      email :<a href="mailto:shehan@forwardairxpress.com" target="_blank">shehan@forwardairxpress.com</a>
 
 
 
