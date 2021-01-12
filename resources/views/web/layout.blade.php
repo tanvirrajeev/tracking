@@ -1476,7 +1476,7 @@ jQuery('ul.superfish').superfish();
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header bg-warning">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Tracking</h5>
           <button type="button" class="close" aria-label="Close"  onclick="closeModal()">
             <span aria-hidden="true">×</span>
           </button>

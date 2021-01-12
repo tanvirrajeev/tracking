@@ -10,7 +10,10 @@
         <div class="col-md-6">
             <div class="card">
 
-                <div class="card-header bg-orange">SEARCH & UPDATE BY AWB</div>
+                <div class="card-header bg-orange">
+                    SEARCH & UPDATE BY AWB
+                    <a href="/multipleawb" class="btn btn-outline-warning btn-sm float-right">MULTIPLE AWB UPDATE</a>
+                </div>
 
                 <div class="card-body" id="card-awb">
 
@@ -66,7 +69,10 @@
         <div class="col-md-6">
             <div class="card">
 
-                <div class="card-header bg-orange">SEARCH & UPDATE BY AREA CODE</div>
+                <div class="card-header bg-orange">
+                    SEARCH & UPDATE BY AREA CODE
+                    <a href="area_code/create" class="btn btn-outline-warning btn-sm float-right">CHANGE MANIFEST</a>
+                </div>
 
                 <div class="card-body" id="card-manifest">
 

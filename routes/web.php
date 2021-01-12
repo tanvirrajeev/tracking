@@ -57,6 +57,8 @@ Route::resource('/search', 'SearchController')->middleware('auth');
 Route::get('/getawb', 'SearchController@getawb')->name('search.getawb')->middleware('auth');
 Route::post('/update-area', 'SearchController@updatearea')->name('search.updatearea')->middleware('auth');
 Route::post('/update-awb', 'SearchController@updateawb')->name('search.updateawb')->middleware('auth');
+Route::get('/multipleawb', 'SearchController@multipleawb')->name('search.multipleawb')->middleware('auth');
+Route::post('/update-multiple-awb', 'SearchController@updateMultipleAwb')->name('search.updatemultipleawb')->middleware('auth');
 
 
 //Area Codes

@@ -8,10 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class SearchController extends Controller
-{
-    public function index()
-    {
+class SearchController extends Controller{
+    public function index(){
         $areaCodes = DB::table('area_codes')->get();
         $checkPoints = DB::table('checkpoints')->get();
         $statuses = DB::table('statuses')
@@ -161,6 +159,16 @@ class SearchController extends Controller
             // return response($request->date);
         }
         // dd($request);
+    }
+
+    public function multipleawb(){
+
+
+        return view("search.multiple.index");
+    }
+
+    public function updateMultipleAwb(Request $request){
+        dd($request);
     }
 
     public function show(Search $search){
