@@ -99,6 +99,8 @@ $('#edit').on('show.bs.modal', function (event) {
     function getStatus(){
         var sltstatusid = '';
         var sltareaid = '';
+        var sltstatus = '';
+        var option = '';
         // st.find('#third_party_company').empty();
 
         $.ajax({
@@ -115,10 +117,10 @@ $('#edit').on('show.bs.modal', function (event) {
 
                 // Setting up selected option for Checkpoints && Areacode dropdown
                 //First populate the selected option then next populate the rest of the options (in latter code loop bellow)
-                var sltstatus = data.statuses;
+                sltstatus = data.statuses;
                 $.each(sltstatus , function(index, val) {
                 sltstatusid = val.checkpoint_id;
-                var option ="<option value=\""+val.checkpoint_id+"\" selected readonly>"+ val.checkpoints +"</option>";
+                option ="<option value=\""+val.checkpoint_id+"\" selected readonly>"+ val.checkpoints +"</option>";
                 st.find('#edit-checkpoint_id').append(option);
 
                 // var sltchkpointName = val.checkpoints;
@@ -126,7 +128,7 @@ $('#edit').on('show.bs.modal', function (event) {
                 // st.find('#edit-checkpoint_name').append(option);
 
                 sltareaid = val.areaid;
-                var option ="<option value=\""+val.areaid+"\" selected readonly>"+ val.areacode +"</option>";
+                option ="<option value=\""+val.areaid+"\" selected readonly>"+ val.areacode +"</option>";
                 st.find('#edit-areaCodes').append(option);
                 });
 
@@ -135,7 +137,7 @@ $('#edit').on('show.bs.modal', function (event) {
                 var status = data.checkpoints;
                 $.each(status , function(index, val) {
                     if (sltstatusid != val.id){ //Populate the dropdown if the optioin is not equal to selected status ID
-                        var option ="<option value=\""+val.id+"\">"+ val.name +"</option>";
+                        option ="<option value=\""+val.id+"\">"+ val.name +"</option>";
                         st.find('#edit-checkpoint_id').append(option);
                     }
                 });
@@ -203,7 +205,7 @@ $('#edit').on('show.bs.modal', function (event) {
 
     //Update Status
     function updateStatus(){
-        $(document).on("click", "#edit-submit_button" , function() {
+        $(document).one("click", "#edit-submit_button" , function() {
 
             var awb = st.find('#edit-awb').val();
             var date = st.find('#edit-created_at').val();
@@ -231,7 +233,7 @@ $('#edit').on('show.bs.modal', function (event) {
             //otherwise not.
             // $sltchkpointName = '';
             // $sltchkpointName = $(this).find('option:selected').text(); //Get the selected option->Name
-            console.log("ckp name: " + checkpoint);
+            // console.log("ckp name: " + checkpoint);
             // if($sltchkpointName != "Shipment connected to"){ //Not sending third_party_company: third_party_company, if the status == "78-Shipment conected to"
             if(checkpoint != 78){ //Not sending third_party_company: third_party_company, if the status == "78-Shipment conected to"
                 $.ajax({

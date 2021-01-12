@@ -16,7 +16,7 @@ class CreateStatusesTable extends Migration
         if (!Schema::hasTable('statuses')) {
             Schema::create('statuses', function (Blueprint $table) {
                 $table->id();
-                $table->string('awb');
+                $table->string('awb')->unique();
                 $table->unsignedBigInteger('checkpoint_id');
                 $table->unsignedBigInteger('user_id');
                 $table->string('mawb')->nullable();

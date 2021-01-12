@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Status;
 use App\Checkpoint;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class StatusController extends Controller
 {
