@@ -163,12 +163,21 @@ class SearchController extends Controller{
 
     public function multipleawb(){
 
-
-        return view("search.multiple.index");
+        $checkPoints = DB::table('checkpoints')->get();
+        return view('search.multiple.index', compact('checkPoints'));
     }
 
     public function updateMultipleAwb(Request $request){
-        dd($request);
+
+        $count = count($request->all()) - 3; //_token, czContainer_czMore_txtCount, awb-checkpoint
+
+        for($i=0; $i<$count; $i++){
+
+        }
+
+
+
+        dd($count);
     }
 
     public function show(Search $search){

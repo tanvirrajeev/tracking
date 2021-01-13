@@ -205,8 +205,9 @@ $('#edit').on('show.bs.modal', function (event) {
 
     //Update Status
     function updateStatus(){
-        $(document).one("click", "#edit-submit_button" , function() {
-
+        $(document).one("click", "#edit-submit_button" , function(e) {
+            e.preventDefault();
+            // e.stopImmediatePropagation();
             var awb = st.find('#edit-awb').val();
             var date = st.find('#edit-created_at').val();
             var manifest = st.find('#edit-manifest').val();

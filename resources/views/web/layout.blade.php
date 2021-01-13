@@ -1936,7 +1936,7 @@ jQuery('ul.superfish').superfish();
                                 "<span class=\"bubble\"></span>" +
                                 "<span class=\"stacked-text\">"+ val.checkpoint +
                                 "<span class=\"subdued\" id=\"cpxid\">AWB No: " +val.awb+"</span>" +
-                                "<span class=\"subdued\" id=\"cpxid\">Area Code: " +areacode+"</span>" +
+                                "<span class=\"subdued\" id=\"cpxid\">Destination Code: " +areacode+"</span>" +
                                 "<span class=\"subdued\" id=\"created-by\">Updated By: " + val.user +"</span>" +
                                 "</span>"+
                                 "</li>");

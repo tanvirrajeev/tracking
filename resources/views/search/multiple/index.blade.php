@@ -36,9 +36,18 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
+                    <br>
                     <div class="row">
+                        <div class="col-7">
+                            <div class="form-group">
+                                <select class="form-control form-control" name="awb-checkpoint" id="awb-checkpoint">
+                                @foreach ($checkPoints as $item)
+                                    <option id="{{ $item->id}}">{{ $item->name}}</option>
+                                @endforeach
+                            </select>
+                            </div>
+                        </div>
                         <div class="col-2">
                             <div class="form-group">
                                 <button type="submit" class="btn bg-pink" id="search_awb_update">UPDATE</button>
