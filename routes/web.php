@@ -38,6 +38,7 @@ Route::get('/web/mission', function () {
 
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::resource('/tracking', 'TrackingController');
+Route::get('/tracking-lists', 'TrackingController@trackingList')->name('tracking.tracking_list')->middleware('auth');
 // Route::resource('/', 'WebController');
 
 //Get web tracking form front page

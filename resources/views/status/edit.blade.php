@@ -207,7 +207,7 @@ $('#edit').on('show.bs.modal', function (event) {
     function updateStatus(){
         $(document).one("click", "#edit-submit_button" , function(e) {
             e.preventDefault();
-            // e.stopImmediatePropagation();
+            e.stopImmediatePropagation();
             var awb = st.find('#edit-awb').val();
             var date = st.find('#edit-created_at').val();
             var manifest = st.find('#edit-manifest').val();
@@ -251,6 +251,7 @@ $('#edit').on('show.bs.modal', function (event) {
                     location.reload();
                     }
                 })
+                e.stopImmediatePropagation();
             }else{
                 $.ajax({
                 type: 'post',
@@ -266,6 +267,7 @@ $('#edit').on('show.bs.modal', function (event) {
                     location.reload();
                     }
                 })
+                e.stopImmediatePropagation();
             }
 
 

@@ -100,11 +100,15 @@
                 <li class="nav-item menu-open">
                     <a href="/status" class="nav-link {{ Request::is('status') ? 'active' : ''}}">
                         <i class="fas fa-tachometer-alt"></i>
-                        <p>STATUS UPDATE</p>
+                        <p>AWB</p>
                     </a>
                     <a href="/search" class="nav-link {{ Request::is('search') ? 'active' : ''}}">
                         <i class="fas fa-tachometer-alt"></i>
-                        <p>SEARCH</p>
+                        <p>SEARCH & UPDATE</p>
+                    </a>
+                    <a href="/tracking" class="nav-link {{ Request::is('tracking') ? 'active' : ''}}">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <p>TRACKING</p>
                     </a>
                     {{-- <ul class="nav nav-treeview">
                         <li class="nav-item">
