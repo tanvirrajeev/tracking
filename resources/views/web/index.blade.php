@@ -189,13 +189,6 @@ $(function() {
 		<ul style="margin: 0pt; padding: 0pt; position: relative; list-style-type: none; z-index: 1; height: 236px; top: -144px;">
                 <li style="overflow: hidden; float: none; width: 198px; height: 78px;">
 				<div class="info">
-					<strong>HACKED BY Aryan Chehreghani Ictus_TM</strong><br/>
-					HACKED BY Aryan Chehreghani Ictus_TM</br><br/>
-				</div>
-				<div class="clear"></div>
-		</li>
-                <li style="overflow: hidden; float: none; width: 198px; height: 78px;">
-				<div class="info">
 					<strong>HOLIDAY NOTICE</strong><br/>
 					Bangladesh Operations shall remain closed on 26/03/2012 on account of Independence Day</br><br/>
 				</div>

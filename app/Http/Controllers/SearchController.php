@@ -7,6 +7,7 @@ use App\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class SearchController extends Controller{
     public function index(){
@@ -169,15 +170,30 @@ class SearchController extends Controller{
 
     public function updateMultipleAwb(Request $request){
 
-        $count = count($request->all()) - 3; //_token, czContainer_czMore_txtCount, awb-checkpoint
+        //$count = count($request->all()) - 3; //
+        // dd($request);
+        $multipleAwb = $request->except(['_token','czContainer_czMore_txtCount','_method','awb_checkpoint','awb_date']); //$request also contains _token, czContainer_czMore_txtCount, awb-checkpoint along with awb_1/2/3_multiple
+        // $sltCheckpoint = $request->awb_checkpoint;
+        // $sltCheckpoint = $request->only(['awb_checkpoint']);
+        // $date = $request->only(['awb_date']);
+        // dd($multipleAwb);
+        // dd($request->awb_1_multiple);
 
-        for($i=0; $i<$count; $i++){
+        foreach($multipleAwb as $item){
+            $st = Status::where('awb', $item)->first();
 
+            $st->checkpoint_id = $request->awb_checkpoint;
+            $st->user_id = Auth::id();
+            $st->status_date = $request->awb_date;
+            $st->save();
+            $st = '';
+
+            // dd($st);
         }
 
 
+            return redirect(route('search.multipleawb'))->with('toast_success','STATUS UPDATED');
 
-        dd($count);
     }
 
     public function show(Search $search){

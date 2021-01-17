@@ -14,7 +14,7 @@
                         <tr>
                           <th>ID</th>
                           <th>AWB</th>
-                          <th>CHECK POINT</th>
+                          <th style="width: 20%">CHECK POINT</th>
                           <th>UPDATED BY</th>
                           <th>CREATED AT</th>
                           <th>ACTION</th>
