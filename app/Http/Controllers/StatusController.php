@@ -48,7 +48,8 @@ class StatusController extends Controller
         return Datatables::of($data)     // View Order Page Datatable
                     ->addColumn('action', function( $data) {
                         return '<a href="" class="btn btn-xs btn-success" data-id='.$data->id.' data-bs-toggle="modal" data-bs-target="#show">SHOW<i class="fas fa-edit"></i></a>
-                        <a href="" class="btn btn-xs bg-purple" data-id='.$data->id.' data-bs-toggle="modal" data-bs-target="#edit">EDIT<i class="fas fa-edit"></i></a>';
+                        <a href="" class="btn btn-xs bg-purple" data-id='.$data->id.' data-bs-toggle="modal" data-bs-target="#edit">EDIT<i class="fas fa-edit"></i></a>
+                        <button class="btn btn-xs btn-danger btn-delete" data-remote="/status/'.$data->id .'">DELETE</button>';
                     })
                     ->rawColumns(['action'])
                     ->make(true);
@@ -157,6 +158,9 @@ class StatusController extends Controller
 
     public function destroy(Status $status)
     {
-        //
+        $item = Status::find($status->id);
+        $item->delete();
+        return view('status.index');
+        // return redirect(route('status.index'))->with('toast_success','AWB Deleted');
     }
 }

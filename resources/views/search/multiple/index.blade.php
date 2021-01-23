@@ -27,7 +27,7 @@
                                                             AWB<span class="asteriskField text-danger">*</span>
                                                         </label>
                                                         <div class="controls ">
-                                                            <input type="text" name="awb_1_multiple" id="awb_1_multiple" class="textinput form-control" autocomplete="off" />
+                                                            <input type="text" name="awb_1_multiple" id="awb_1_multiple" class="textinput form-control" required autocomplete="off" />
                                                         </div>
                                                     </div>
                                             </div>
@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-7">
                             <div class="form-group">
-                                <label for="awb_date">CHECK POINT</label>
+                                <label for="awb_date">CHECK POINT</label><label class="text-danger">*</label>
                                 <select class="form-control form-control" name="awb_checkpoint" id="awb_checkpoint">
                                 @foreach ($checkPoints as $item)
                                     <option value="{{ $item->id}}">{{ $item->name}}</option>
@@ -50,10 +50,10 @@
                             </div>
                         </div>
                         <div class="col-5">
-                            <label for="awb_date">DATE & TIME</label>
+                            <label for="awb_date">DATE & TIME</label><label class="text-danger">*</label>
                             <i class="fa fa-calendar-alt"></i>
                             <div class="input-group date" id="p">
-                              <input type="text" class="form-control datetimepicker" name="awb_date" id="awb_date" autocomplete="off"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                              <input type="text" class="form-control datetimepicker" name="awb_date" id="awb_date" required autocomplete="off"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                         </div>
                     </div>

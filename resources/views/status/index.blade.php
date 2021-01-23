@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @include('status.edit')
     @include('status.show')
     <div class="row justify-content-center">
@@ -130,6 +131,31 @@ $(document).ready( function () {
     });
 });
 </script>
+<script>
+    $('#awbtables').on('click', '.btn-delete[data-remote]', function (e) {
+      e.preventDefault();
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
+      var url = $(this).data('remote');
+      console.log(url);
+      // confirm then
+      if (confirm('Are you sure you want to delete this?')) {
+          $.ajax({
+              url: url,
+              type: 'DELETE',
+              dataType: 'json',
+              data: {method: '_DELETE', submit: true}
+          }).always(function (data) {
+            alert("AWB Deleted!");
+              $('#awbtables').DataTable().draw(false);
+          });
+      }else
+          alert("You have cancelled!");
+  });
+  </script>
 
 
 @endsection

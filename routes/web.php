@@ -60,6 +60,7 @@ Route::post('/update-area', 'SearchController@updatearea')->name('search.updatea
 Route::post('/update-awb', 'SearchController@updateawb')->name('search.updateawb')->middleware('auth');
 Route::get('/multipleawb', 'SearchController@multipleawb')->name('search.multipleawb')->middleware('auth');
 Route::put('/update-multiple-awb', 'SearchController@updateMultipleAwb')->name('search.updatemultipleawb')->middleware('auth');
+Route::get('/change-manigest', 'SearchController@changeManigest')->name('search.changemanigest')->middleware('auth');
 
 
 //Area Codes

@@ -61,7 +61,7 @@ $(document).ready( function () {
           }
       });
       var url = $(this).data('remote');
-      console.log(url);
+    //   console.log(url);
       // confirm then
       if (confirm('Are you sure you want to delete this?')) {
           $.ajax({
@@ -70,6 +70,7 @@ $(document).ready( function () {
               dataType: 'json',
               data: {method: '_DELETE', submit: true}
           }).always(function (data) {
+            alert("Tracking Deleted!");
               $('#awbtables').DataTable().draw(false);
           });
       }else

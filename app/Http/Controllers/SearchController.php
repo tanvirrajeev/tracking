@@ -37,7 +37,7 @@ class SearchController extends Controller{
         //
         // dd($request);
 
-        // Request from SEARCH & UPDATE BY AREA CODE Modal
+        // Request from SEARCH & UPDATE BY MANIFEST Modal
         if($request->exists('manifest')){
             // dd($request);
             $areaCodes = DB::table('area_codes')->get();
@@ -169,7 +169,6 @@ class SearchController extends Controller{
     }
 
     public function updateMultipleAwb(Request $request){
-
         //$count = count($request->all()) - 3; //
         // dd($request);
         $multipleAwb = $request->except(['_token','czContainer_czMore_txtCount','_method','awb_checkpoint','awb_date']); //$request also contains _token, czContainer_czMore_txtCount, awb-checkpoint along with awb_1/2/3_multiple
@@ -178,22 +177,30 @@ class SearchController extends Controller{
         // $date = $request->only(['awb_date']);
         // dd($multipleAwb);
         // dd($request->awb_1_multiple);
+        // dd($multipleAwb);
 
-        foreach($multipleAwb as $item){
-            $st = Status::where('awb', $item)->first();
 
-            $st->checkpoint_id = $request->awb_checkpoint;
-            $st->user_id = Auth::id();
-            $st->status_date = $request->awb_date;
-            $st->save();
-            $st = '';
+        if($request->awb_1_multiple && $request->awb_date != ''){//AWB Not Blank
+            //Check if any one AWB not matched, return with error
+            foreach($multipleAwb as $item){
+                $st = Status::where('awb', $item)->first();
+                if(!$st){ //if AWB matched
+                    return redirect(route('search.multipleawb'))->with('toast_error','AWB NOT MATCHED!!!');
+                }
+            }
 
-            // dd($st);
+            foreach($multipleAwb as $item){
+                $st = Status::where('awb', $item)->first();
+                    $st->checkpoint_id = $request->awb_checkpoint;
+                    $st->user_id = Auth::id();
+                    $st->status_date = $request->awb_date;
+                    $st->save();
+                    $st = '';
+            }
+            return redirect(route('search.index'))->with('toast_success','STATUS UPDATED');
+        }else{
+            return redirect(route('search.multipleawb'))->with('toast_error','REQUIRED FIELD MISSING');
         }
-
-
-            return redirect(route('search.multipleawb'))->with('toast_success','STATUS UPDATED');
-
     }
 
     public function show(Search $search){

@@ -100,7 +100,8 @@ return Datatables::of($data)     // View Order Page Datatable
 
         $item = Tracking::find($tracking->id);
         $item->delete();
-        return redirect(route('tracking.index'))->with('toast_success','Tracking Deleted');
+        return view('tracking.index');
+        // return redirect(route('tracking.index'))->with('toast_success','Tracking Deleted');
 
     }
 }

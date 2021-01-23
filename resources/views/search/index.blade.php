@@ -70,7 +70,7 @@
             <div class="card">
 
                 <div class="card-header bg-orange">
-                    SEARCH & UPDATE BY AREA CODE
+                    SEARCH & UPDATE BY MANIFEST
                     <a href="area_code/create" class="btn btn-outline-warning btn-sm float-right">CHANGE MANIFEST</a>
                 </div>
 
@@ -241,7 +241,7 @@
             if(manifest && date != ''){
                 Swal.fire({
                 title: 'Are you sure?',
-                text: "You want to update status for all AWB under this Area Code?",
+                text: "You want to update status for all AWB under this Manifest?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -255,7 +255,7 @@
             }else{
                 Swal.fire({
                 title: 'Fill up all fields',
-                text: "All fields are necessary to update AWB by Area Code",
+                text: "All fields are necessary to update AWB by Manifest",
                 icon: 'warning',
                 // showCancelButton: true,
                 // confirmButtonColor: '#3085d6',
@@ -338,7 +338,7 @@
                     }else{
                         Swal.fire({
                         title: 'AWB Not Found',
-                        text: "Check Area Code whether it is correct or not",
+                        text: "Check Manifest whether it is correct or not",
                         icon: 'warning',
                         // showCancelButton: true,
                         // confirmButtonColor: '#3085d6',
@@ -351,19 +351,9 @@
                         })
                     }
                 }
-
             });
-
-
         }
-
-
-
-
     });
 
 </script>
-
-
-
 @endsection
