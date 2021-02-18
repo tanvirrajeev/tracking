@@ -54,13 +54,16 @@ Route::get('/statuslist', 'StatusController@statuslist')->name('status.statuslis
 Route::post('/chgstatusmodal', 'StatusController@chgstatusmodal')->name('status.chgstatusmodal')->middleware('auth');
 
 //Search & Update
+Route::get('/search/manifest', 'SearchController@manifest')->name('search.manifest')->middleware('auth');
+Route::get('/search/getmanifest', 'SearchController@getmanifest')->name('search.getmanifest')->middleware('auth');
+Route::post('/search/change-manifest', 'SearchController@changemanifest')->name('search.changemanifest')->middleware('auth');
 Route::resource('/search', 'SearchController')->middleware('auth');
 Route::get('/getawb', 'SearchController@getawb')->name('search.getawb')->middleware('auth');
 Route::post('/update-area', 'SearchController@updatearea')->name('search.updatearea')->middleware('auth');
 Route::post('/update-awb', 'SearchController@updateawb')->name('search.updateawb')->middleware('auth');
 Route::get('/multipleawb', 'SearchController@multipleawb')->name('search.multipleawb')->middleware('auth');
 Route::put('/update-multiple-awb', 'SearchController@updateMultipleAwb')->name('search.updatemultipleawb')->middleware('auth');
-Route::get('/change-manigest', 'SearchController@changeManigest')->name('search.changemanigest')->middleware('auth');
+
 
 
 //Area Codes

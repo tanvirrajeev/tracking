@@ -203,6 +203,70 @@ class SearchController extends Controller{
         }
     }
 
+    public function manifest(){
+        $statuses = DB::table('statuses')
+        ->join('users', 'users.id', '=', 'statuses.user_id')
+        ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
+        ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+        ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest','area_codes.name as areacode')
+        ->orderBy('statuses.awb', 'desc')
+        ->paginate(10);
+
+        return view('search.multiple.manifest', compact('statuses'));
+    }
+
+    public function getmanifest(Request $request){
+        // dd($request);
+        if ($request->exists('manifest')){
+            // return response("Manifest Search Request!");
+            $statuses = DB::table('statuses')
+                ->join('users', 'users.id', '=', 'statuses.user_id')
+                ->join('checkpoints', 'checkpoints.id', '=', 'statuses.checkpoint_id')
+                ->join('area_codes', 'area_codes.id', '=', 'statuses.areacode')
+                ->select('statuses.id','statuses.awb','checkpoints.name as checkpoints','users.name as updated_by','statuses.manifest','area_codes.id as areaId','area_codes.name as areacode')
+                ->where('statuses.manifest', '=', $request->manifest)
+                // ->where('area_codes.name', '=', $request->areaCodes)
+                // ->get();
+                ->orderBy('statuses.awb', 'desc')
+                ->paginate(200);
+
+            return view('search.multiple.manifest', compact('statuses'));
+        }
+    }
+
+    public function changemanifest(Request $request){
+        // dd($request);
+        // return response($request);
+        $data1 = 1; //Job Success
+        $data2 = 2; //Job Failed
+
+        // $sltawb = $request->awb;
+        if ($request->exists('manifest_to')){
+            $statuses = DB::table('statuses')
+                ->where('statuses.manifest', '=', $request->manifest)
+                ->get();
+            // return response($statuses);
+            if ($statuses != 'null'){
+                foreach ($statuses as $item) {
+                    $st = New Status;
+                    $st = Status::find($item->id);
+                    // $st->awb = $item->awb;
+                    // $st->checkpoint_id = $request->checkpointId;
+                    $st->user_id = Auth::id();
+                    $st->manifest = $request->manifest_to;
+                    // $st->areacode = $item->areacode;
+                    // $st->status_date = $request->date;
+                    $st->save();
+                }
+                return response($data1);
+            }else{
+                return response($data2);
+            }
+        }
+
+        return response($data2);
+    }
+
     public function show(Search $search){
         //
         //dd($search);

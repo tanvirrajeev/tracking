@@ -1943,7 +1943,7 @@ jQuery('ul.superfish').superfish();
                                 "</li>");
                         $('#tracking-ul').append("<li id=\"dlvrd\">" +
                                 "<span class=\"bubble\"></span>" +
-                                "<span class=\"stacked-text\"> Delivered</span>" +
+                                "<span class=\"stacked-text\"></span>" +
                                 "</span>"+
                                 "</li>");
                         }else if (val.checkpoint  == 'Delivered'){

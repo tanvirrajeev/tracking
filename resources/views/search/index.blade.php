@@ -71,7 +71,7 @@
 
                 <div class="card-header bg-orange">
                     SEARCH & UPDATE BY MANIFEST
-                    <a href="area_code/create" class="btn btn-outline-warning btn-sm float-right">CHANGE MANIFEST</a>
+                    <a href="{{ route('search.manifest') }}" class="btn btn-outline-warning btn-sm float-right">CHANGE MANIFEST</a>
                 </div>
 
                 <div class="card-body" id="card-manifest">
