@@ -63,7 +63,7 @@ class StatusController extends Controller
 
     public function store(Request $request){
         $this->validate($request,[
-            'awb'=>'required|numeric|unique:statuses',
+            'awb'=>'required|unique:statuses',
             'checkpoint_id'=>'required'
          ]);
 

@@ -97,7 +97,9 @@
 <script>
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-    $(document).ready(function (){
+    $(document).ready(function (e){
+        // e.preventDefault();
+        // e.stopImmediatePropagation();
 
         var m =$('#card-manifest');
 
@@ -220,50 +222,7 @@
                     }
                 }
             });
-        }
-
-        // Update funcion called by Update button action click function()
-        function updatearea (){
-            var m =$('#card-manifest');
-            var manifest = m.find('#manifest').val();
-            // var areaCodes = m.find('#search_areaCodes').val();
-            // var checkpoint = m.find('#manifest-checkpoint').val();
-            var areaCodesId = m.find('#search_areaCodes option:selected').attr('id');
-            var checkpointId = m.find('#manifest-checkpoint option:selected').attr('id');
-            var date = m.find('#manifest_date').val();
-
-            $.ajax({
-                type: 'post',
-                url: "{{ url('/update-area') }}",
-                data: {_token: CSRF_TOKEN, manifest: manifest, areaCodesId: areaCodesId,checkpointId: checkpointId, date: date},
-                success:function(data){
-                    // alert(data);
-                    // console.log(data);
-
-                    if(data == '1'){
-                        Toast.fire({
-                        type: 'success',
-                        icon: 'success',
-                        title: 'AWB UPDATED!'
-                        });
-                        location.reload();
-                    }else{
-                        Swal.fire({
-                        title: 'AWB Not Found',
-                        text: "Check Manifest whether it is correct or not",
-                        icon: 'warning',
-                        // showCancelButton: true,
-                        // confirmButtonColor: '#3085d6',
-                        // cancelButtonColor: '#d33',
-                        // confirmButtonText: 'Yes, Update!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // location.reload();
-                            }
-                        })
-                    }
-                }
-            });
+            e.stopImmediatePropagation();
         }
     });
 
